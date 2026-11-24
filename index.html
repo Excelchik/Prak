@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Я — учитель информатики! Миссия: спасти умный город | 7 класс</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2459ff; --blue-d:#1435c4; --teal:#12c6bd; --violet:#7a4dff; --orange:#ff7a1a; --yellow:#ffc928;
+  --ink:#121838; --muted:#5a6287; --bg:#f4f6fc; --card:#ffffff; --line:#e2e7f4;
+  --ok:#16b46a; --bad:#ef4a5b;
+  --grad:linear-gradient(120deg,var(--blue),var(--violet) 55%,var(--teal));
+  --grad-warm:linear-gradient(120deg,var(--orange),var(--yellow));
+  --r:22px; --shadow:0 10px 30px rgba(36,57,140,.10); --shadow-lg:0 24px 60px rgba(36,57,140,.18);
+  --fh:'Unbounded','Montserrat','Segoe UI',system-ui,sans-serif;
+  --fb:'Manrope','Segoe UI',system-ui,-apple-system,sans-serif;
+  --fm:'JetBrains Mono','Consolas','Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--fb);color:var(--ink);background:var(--bg);line-height:1.6;font-size:16.5px;overflow-x:hidden}
+img,svg{max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:var(--blue)}
+.wrap{width:min(1200px,92%);margin:0 auto}
+h1,h2,h3,h4{font-family:var(--fh);line-height:1.2;letter-spacing:-.01em}
+code,.mono{font-family:var(--fm)}
+:not(pre)>code{background:#eef1ff;color:var(--blue-d);padding:2px 7px;border-radius:7px;font-size:.92em}
+
+/* ===== progress + nav ===== */
+#scrollbar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--grad-warm);z-index:1001;transition:width .1s}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,231,244,.8);transition:box-shadow .3s}
+nav.top.scrolled{box-shadow:0 6px 24px rgba(20,40,120,.08)}
+.navin{display:flex;align-items:center;gap:14px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-weight:800;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.logo .lg{width:36px;height:36px;border-radius:11px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:15px;box-shadow:0 6px 16px rgba(36,89,255,.35)}
+.links{display:flex;gap:2px;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{text-decoration:none;color:var(--muted);font-weight:700;font-size:13.5px;padding:8px 10px;border-radius:10px;white-space:nowrap;transition:.2s}
+.links a:hover{color:var(--blue);background:#eef2ff}
+.links a.active{color:#fff;background:var(--blue)}
+.scorepill{display:flex;align-items:center;gap:6px;background:var(--grad-warm);color:#3a2300;font-weight:800;font-size:14px;padding:7px 13px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 16px rgba(255,122,26,.3);text-decoration:none}
+.scorepill.bump{animation:bump .5s}
+@keyframes bump{40%{transform:scale(1.18)}}
+.burger{display:none;width:42px;height:42px;border-radius:12px;background:#eef2ff;font-size:20px}
+@media (max-width:1100px){
+  .burger{display:grid;place-items:center;margin-left:auto}
+  .links{position:fixed;top:64px;left:0;right:0;flex-direction:column;background:#fff;padding:10px 4%;box-shadow:var(--shadow-lg);display:none;max-height:calc(100vh - 64px);overflow:auto}
+  .links.open{display:flex}
+  .links a{font-size:15px;padding:12px}
+  .scorepill{margin-left:auto}
+  .burger{margin-left:8px}
+}
+
+/* ===== tooltip ===== */
+[data-tip]{position:relative}
+[data-tip]:hover::after,[data-tip]:focus-visible::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font:600 12.5px/1.4 var(--fb);padding:8px 11px;border-radius:10px;width:max-content;max-width:240px;white-space:normal;text-align:center;z-index:50;box-shadow:var(--shadow);pointer-events:none;animation:tipin .2s}
+@keyframes tipin{from{opacity:0;transform:translate(-50%,4px)}}
+
+/* ===== hero ===== */
+.hero{min-height:100vh;padding:110px 0 60px;position:relative;overflow:hidden;background:
+ radial-gradient(900px 500px at 85% 10%,rgba(122,77,255,.22),transparent 60%),
+ radial-gradient(700px 500px at 0% 90%,rgba(18,198,189,.22),transparent 60%),
+ linear-gradient(160deg,#0d1650 0%,#1a2a9c 45%,#2459ff 100%);color:#fff;display:flex;align-items:center}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(180deg,#000 40%,transparent)}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;position:relative;z-index:2}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px;font-weight:700;font-size:13.5px;letter-spacing:.04em}
+.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(255,201,40,.25);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(255,201,40,0)}}
+.hero h1{font-size:clamp(34px,5.6vw,68px);font-weight:900;margin:22px 0 12px;line-height:1.05}
+.hero h1 .shine{background:linear-gradient(90deg,#fff,#ffd96b,#5ff3ea,#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.hero .sub{font-family:var(--fh);font-size:clamp(18px,2.4vw,26px);font-weight:700;color:#ffd96b;display:flex;align-items:center;gap:10px}
+.hero .sub::before{content:"";width:38px;height:3px;background:var(--yellow);border-radius:3px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 32px}
+.hero-chips span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:8px 14px;border-radius:12px;font-weight:600;font-size:14.5px}
+.hero-chips span b{color:#7ff7ef}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;border-radius:16px;padding:14px 24px;font-size:16px;transition:transform .2s,box-shadow .2s,background .2s;text-decoration:none}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-start{font-family:var(--fh);font-size:18px;padding:19px 34px;background:var(--grad-warm);color:#2b1700;box-shadow:0 14px 34px rgba(255,140,30,.45),inset 0 -4px 0 rgba(0,0,0,.12);position:relative;overflow:hidden}
+.btn-start::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:sweep 2.8s infinite}
+@keyframes sweep{60%,100%{left:130%}}
+.btn-start .arr{display:inline-block;animation:nudge 1.2s infinite}
+@keyframes nudge{50%{transform:translateY(4px)}}
+.btn-p{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(36,89,255,.3)}
+.btn-p:hover{background:var(--blue-d)}
+.btn-g{background:#eef2ff;color:var(--blue-d)}
+.btn-g:hover{background:#e0e7ff}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(255,122,26,.3)}
+.btn-sm{padding:10px 16px;font-size:14.5px;border-radius:12px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.hero-art{position:relative}
+.hero-art svg{width:100%;height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.35))}
+.floaty{animation:floaty 5s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-12px)}}
+.blink{animation:blink 4s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.win{animation:winf 3s infinite}
+@keyframes winf{0%,100%{opacity:.95}50%{opacity:.35}}
+.roadline{stroke-dasharray:18 14;animation:road 1s linear infinite}
+@keyframes road{to{stroke-dashoffset:-32}}
+.drone{animation:drone 7s ease-in-out infinite}
+@keyframes drone{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,14px)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin .25s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.shape{position:absolute;border-radius:24px;opacity:.5;z-index:1;animation:drift 12s ease-in-out infinite}
+@keyframes drift{50%{transform:translate(20px,-25px) rotate(25deg)}}
+.scrollhint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,.7);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
+.scrollhint i{width:22px;height:34px;border:2px solid rgba(255,255,255,.6);border-radius:12px;position:relative}
+.scrollhint i::after{content:"";position:absolute;top:6px;left:50%;width:4px;height:7px;margin-left:-2px;border-radius:2px;background:#fff;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(12px);opacity:0}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-art{max-width:520px;margin:0 auto}.scrollhint{display:none}}
+
+/* ===== sections ===== */
+.sec{padding:96px 0;position:relative}
+.sec.alt{background:linear-gradient(180deg,#f9faff 0%,#eef2ff 100%)}
+.sec.white{background:#fff}
+.sec-head{max-width:820px;margin-bottom:44px}
+.sec-head .num{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:#e8eeff;padding:6px 13px;border-radius:999px}
+.sec-head h2{font-size:clamp(26px,3.6vw,42px);margin:14px 0 12px;font-weight:800}
+.sec-head h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-head p{color:var(--muted);font-size:17.5px}
+.src{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;letter-spacing:.02em;vertical-align:middle}
+.src.law{background:#fff2d6;color:#8a5200;border:1px solid #ffd98a}
+.src.own{background:#e3fbf8;color:#056b65;border:1px solid #9eeee8}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);padding:26px;transition:transform .3s,box-shadow .3s}
+.card.lift:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:980px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.sec{padding:72px 0}body{font-size:16px}}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+.ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:26px;flex-shrink:0}
+.i-b{background:#e5ecff}.i-t{background:#d9f8f5}.i-v{background:#ece5ff}.i-o{background:#ffe9d8}.i-y{background:#fff4cc}.i-g{background:#dcf7e9}
+.deco{position:absolute;pointer-events:none;z-index:0;opacity:.6}
+
+/* ===== passport (flip) ===== */
+.flip{perspective:1200px;height:230px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+.flip:hover .flip-in,.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:var(--r);padding:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);border:1px solid var(--line);background:#fff}
+.face.back{transform:rotateY(180deg);background:var(--grad);color:#fff;border:none;justify-content:center;font-weight:600;font-size:15.5px}
+.face .lbl{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:14px}
+.face .val{font-family:var(--fh);font-weight:800;font-size:22px;margin-top:4px;line-height:1.25}
+.face .val.big{font-size:44px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.face .turn{margin-top:auto;font-size:12.5px;color:var(--muted);font-weight:700}
+.tree{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.tnode{display:flex;gap:16px;align-items:stretch}
+.tnode .rail{width:34px;display:flex;flex-direction:column;align-items:center}
+.tnode .rail b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:800;flex-shrink:0}
+.tnode .rail i{flex:1;width:3px;background:linear-gradient(var(--blue),var(--teal));opacity:.35;margin:4px 0;border-radius:3px}
+.tnode .tb{padding:4px 0 22px}
+.tnode .tb small{font-weight:800;color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.05em}
+.tnode .tb div{font-weight:700;font-size:16.5px}
+.codecode{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.codecode span{font-family:var(--fm);font-weight:700;font-size:22px;padding:8px 14px;border-radius:12px;color:#fff;position:relative}
+.codecode em{font-style:normal;font-size:12px;display:block;font-family:var(--fb);font-weight:700;text-align:center;color:var(--muted);margin-top:4px}
+
+/* ===== goals ===== */
+.goal{position:relative;overflow:hidden;padding:30px}
+.goal .code-badge{font-family:var(--fm);font-weight:700;font-size:26px;color:var(--blue)}
+.goal h3{font-size:19px;margin:10px 0 8px;font-weight:700;font-family:var(--fb);line-height:1.45}
+.goal::before{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:var(--grad);opacity:.1}
+.goal.extra{border-style:dashed;background:#fbfcff}
+.goal.extra .code-badge{color:var(--violet);font-size:20px}
+.mgoal{background:var(--grad);color:#fff;border-radius:28px;padding:34px 38px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin:26px 0 44px}
+.mgoal::after{content:"🎯";position:absolute;right:28px;bottom:-14px;font-size:120px;opacity:.18}
+.mgoal small{font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.mgoal p{font-family:var(--fh);font-size:clamp(18px,2.2vw,24px);font-weight:700;margin-top:10px;line-height:1.4;max-width:900px}
+.results{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.results .arrow{display:grid;place-items:center;font-size:30px;color:var(--blue);animation:arr 1.6s infinite}
+@keyframes arr{50%{transform:translateX(6px)}}
+.res{border-radius:var(--r);padding:26px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-top:6px solid}
+.res h3{font-size:22px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.res .lvl{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:12px}
+.res ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.res li{display:flex;gap:10px;font-weight:600;font-size:15.5px;padding:10px 12px;background:#f6f8ff;border-radius:12px;transition:.25s}
+.res li:hover{background:#e9efff;transform:translateX(4px)}
+.res li::before{content:"✓";flex-shrink:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900}
+.res.k{border-top-color:var(--blue)}.res.k li::before{background:var(--blue)}
+.res.u{border-top-color:var(--violet)}.res.u li::before{background:var(--violet)}
+.res.a{border-top-color:var(--orange)}.res.a li::before{background:var(--orange)}
+@media (max-width:980px){.results{grid-template-columns:1fr}.results .arrow{transform:rotate(90deg);animation:none}}
+
+/* ===== methods ===== */
+.main-method{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,#fff 0%,#f3efff 100%);border:2px solid #dcd1ff}
+.main-method .mm-ico{width:110px;height:110px;border-radius:30px;background:var(--grad);display:grid;place-items:center;font-size:56px;box-shadow:0 16px 36px rgba(122,77,255,.35)}
+.main-method h3{font-size:26px;margin:6px 0 10px}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.why div{background:#fff;border-radius:14px;padding:12px 14px;font-size:14.5px;font-weight:600;border:1px solid var(--line)}
+.why div b{display:block;font-size:20px;margin-bottom:4px}
+@media (max-width:900px){.main-method{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}}
+.mtiles{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin:34px 0 18px}
+.mtile{background:#fff;border:2px solid var(--line);border-radius:18px;padding:16px 10px;text-align:center;font-weight:800;font-size:13.5px;transition:.25s;display:flex;flex-direction:column;align-items:center;gap:8px;line-height:1.25}
+.mtile .e{font-size:28px;transition:.3s}
+.mtile:hover{border-color:var(--blue);transform:translateY(-4px)}
+.mtile:hover .e{transform:scale(1.2) rotate(-6deg)}
+.mtile.on{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 12px 26px rgba(36,89,255,.35)}
+.mtile .n{font-size:11px;opacity:.7}
+@media (max-width:980px){.mtiles{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:560px){.mtiles{grid-template-columns:repeat(2,1fr)}}
+.mdetail{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;animation:fadein .45s}
+@keyframes fadein{from{opacity:0;transform:translateY(12px)}}
+.mdetail .box{background:#fff;border-radius:18px;padding:20px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.mdetail .box h4{font-family:var(--fb);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.mdetail .box.big{grid-row:span 2;background:linear-gradient(160deg,#1a2a9c,#2459ff);color:#fff;border:none}
+.mdetail .box.big h4{color:#b9c8ff}
+.mdetail .box.big h3{font-size:24px;margin-bottom:12px}
+.mdetail .stages{display:flex;flex-wrap:wrap;gap:6px}
+.mdetail .stages span{background:#fff4cc;color:#6a4b00;font-weight:700;font-size:13px;padding:5px 10px;border-radius:9px}
+@media (max-width:900px){.mdetail{grid-template-columns:1fr}.mdetail .box.big{grid-row:auto}}
+.matrix{overflow-x:auto;margin-top:34px}
+.matrix table{border-collapse:separate;border-spacing:0;width:100%;min-width:760px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.matrix th,.matrix td{padding:11px 10px;text-align:center;font-size:13.5px;border-bottom:1px solid var(--line)}
+.matrix th{background:#f2f5ff;font-weight:800;color:var(--muted);font-size:12.5px}
+.matrix td:first-child,.matrix th:first-child{text-align:left;font-weight:700;padding-left:18px}
+.matrix .dot{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(36,89,255,.1)}
+.matrix tr:hover td{background:#f8faff}
+
+/* ===== lesson timeline ===== */
+.tl-bar{display:flex;gap:6px;margin:10px 0 6px;flex-wrap:nowrap}
+.tl-seg{border-radius:14px;padding:12px 8px;color:#fff;font-weight:800;font-size:12.5px;text-align:center;transition:.25s;position:relative;min-width:0;line-height:1.2;display:flex;flex-direction:column;justify-content:center;min-height:74px}
+.tl-seg .m{font-family:var(--fh);font-size:18px}
+.tl-seg .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px;opacity:.95}
+.tl-seg:hover{transform:translateY(-4px);filter:brightness(1.08)}
+.tl-seg.on{transform:translateY(-6px);box-shadow:0 12px 24px rgba(0,0,0,.2);outline:3px solid #fff;outline-offset:-3px}
+.tl-seg.now::after{content:"▶ сейчас";position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--orange);white-space:nowrap}
+.tl-ruler{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:22px}
+@media (max-width:760px){.tl-bar{flex-wrap:wrap}.tl-seg{flex:1 1 22% !important}.tl-ruler{display:none}}
+.timer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 16px;margin-bottom:20px;box-shadow:var(--shadow)}
+.timer .clock{font-family:var(--fm);font-weight:700;font-size:24px;color:var(--blue-d);min-width:120px}
+.timer .lbl{font-weight:700;color:var(--muted);font-size:14px;flex:1;min-width:180px}
+.timer .track{height:8px;background:#e9edfb;border-radius:8px;overflow:hidden;width:100%}
+.timer .track i{display:block;height:100%;width:0;background:var(--grad-warm);transition:width .5s}
+.stage{display:grid;grid-template-columns:300px 1fr;gap:0;border-radius:26px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;animation:fadein .45s}
+.stage .side{padding:30px;color:#fff;display:flex;flex-direction:column;gap:12px}
+.stage .side .no{font-family:var(--fh);font-size:15px;opacity:.85}
+.stage .side h3{font-size:25px}
+.stage .side .time{font-family:var(--fh);font-size:46px;font-weight:900}
+.stage .side .time small{font-size:16px}
+.stage .side .goalbox{background:rgba(255,255,255,.15);border-radius:14px;padding:14px;font-weight:600;font-size:15px}
+.stage .main{padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stage .cell{background:#f7f9ff;border-radius:16px;padding:16px 18px}
+.stage .cell.wide{grid-column:1/-1}
+.stage .cell h4{font-family:var(--fb);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.stage .cell ul{padding-left:18px}
+.stage .cell li{margin:4px 0;font-size:15.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{background:#e8eeff;color:var(--blue-d);font-weight:700;font-size:13px;padding:5px 10px;border-radius:9px}
+.tags.r span{background:#ffeedd;color:#9a4400}
+.stage-nav{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+@media (max-width:900px){.stage{grid-template-columns:1fr}.stage .main{grid-template-columns:1fr}}
+.dialog{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.msg{display:flex;gap:12px;align-items:flex-start;max-width:860px}
+.msg .av{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.msg .bub{background:#fff;border:1px solid var(--line);border-radius:4px 18px 18px 18px;padding:12px 16px;box-shadow:var(--shadow);font-size:15.5px}
+.msg .bub>b:first-child{display:block;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.msg.st{margin-left:auto;flex-direction:row-reverse}
+.msg.st .bub{border-radius:18px 4px 18px 18px;background:#eefcfb}
+
+/* ===== theory ===== */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:11px 18px;border-radius:14px;font-weight:800;font-size:15px;background:#fff;border:2px solid var(--line);transition:.2s;font-family:var(--fm)}
+.tab:hover{border-color:var(--blue)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tpanel{display:none;grid-template-columns:1.15fr 1fr;gap:22px;animation:fadein .4s}
+.tpanel.on{display:grid}
+@media (max-width:900px){.tpanel.on{grid-template-columns:1fr}}
+.codebox{background:#0f1533;border-radius:18px;overflow:hidden;box-shadow:0 14px 34px rgba(15,21,51,.3);border:1px solid #232c5c}
+.codebar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#171f47;color:#8e9ad0;font-size:12.5px;font-weight:700;font-family:var(--fm)}
+.codebar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.codebar i:nth-child(2){background:#febc2e}.codebar i:nth-child(3){background:#28c840}
+.codebar span{margin-left:8px}
+.codebar .run{margin-left:auto;background:#28c840;color:#07240f;font-weight:800;font-size:12.5px;padding:5px 12px;border-radius:8px;font-family:var(--fb)}
+.codebar .run:hover{filter:brightness(1.1)}
+pre.code{font-family:var(--fm);font-size:15px;line-height:1.75;color:#e6e9ff;padding:16px 0;overflow-x:auto;margin:0}
+pre.code .ln{display:block;padding:0 18px 0 0;white-space:pre;transition:background .25s}
+pre.code .ln .no{display:inline-block;width:40px;text-align:right;padding-right:14px;color:#4c5689;user-select:none}
+pre.code .ln.hl{background:rgba(255,201,40,.18);box-shadow:inset 4px 0 0 var(--yellow)}
+pre.code .ln.dim{opacity:.38}
+.t-kw{color:#ff8ad8;font-weight:600}.t-fn{color:#5ff3ea}.t-str{color:#ffd96b}.t-num{color:#ff9f5a}.t-com{color:#6c78ad;font-style:italic}.t-var{color:#e6e9ff}
+.t-blank{color:#0f1533;background:var(--yellow);border-radius:5px;padding:0 4px;animation:blankp 1.4s infinite}
+@keyframes blankp{50%{background:#ff9f5a}}
+.console{background:#060a1f;color:#7dffb0;font-family:var(--fm);font-size:14.5px;padding:12px 18px;min-height:52px;border-top:1px solid #232c5c;white-space:pre-wrap}
+.console .p{color:#5a6699}
+.console .err{color:#ff8b95}
+.trybox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 18px;background:#141c44;color:#b9c3ee;font-size:14px;font-weight:700;border-top:1px solid #232c5c}
+.trybox input,.trybox select{background:#0b1030;color:#fff;border:1px solid #39448a;border-radius:9px;padding:7px 10px;font-family:var(--fm);font-size:14px;width:110px}
+.explain-card h3{font-size:21px;margin-bottom:10px}
+.explain-card ul{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px;margin:12px 0}
+.explain-card li{padding:10px 12px 10px 40px;background:#f5f7ff;border-radius:12px;position:relative;font-size:15.5px}
+.explain-card li::before{content:"💡";position:absolute;left:12px;top:10px}
+.flow svg{width:100%;height:auto;max-height:250px}
+.flow text{font-family:var(--fb);font-weight:700}
+.truth{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;background:#f5f7ff;font-weight:800;font-family:var(--fm)}
+.switch{width:92px;height:36px;border-radius:999px;background:#ffd5da;position:relative;transition:.3s;font-family:var(--fm);font-weight:800;font-size:12.5px;color:#a3162a;text-align:right;padding-right:12px}
+.switch::before{content:"";position:absolute;left:4px;top:4px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:.3s}
+.switch.on{background:#c9f5dc;color:#0a7a43;text-align:left;padding-left:12px;padding-right:0}
+.switch.on::before{left:60px}
+.ops{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.op{border-radius:16px;padding:14px;text-align:center;border:2px solid var(--line);transition:.3s}
+.op code{font-size:14px !important;background:none !important;color:var(--ink) !important;padding:0 !important}
+.op .r{font-family:var(--fm);font-weight:800;font-size:20px;margin-top:6px}
+.op.T{background:#e3fbee;border-color:#8fe3b6}.op.T .r{color:var(--ok)}
+.op.F{background:#ffeef0;border-color:#ffb9c1}.op.F .r{color:var(--bad)}
+.opdesc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.opdesc div{border-radius:16px;padding:14px;font-size:14.5px;font-weight:600;color:#fff}
+.opdesc div b{font-family:var(--fm);font-size:20px;display:block}
+@media (max-width:560px){.ops,.opdesc{grid-template-columns:1fr}}
+
+/* ===== missions ===== */
+.hud{position:sticky;top:72px;z-index:20;background:rgba(18,24,56,.94);backdrop-filter:blur(10px);color:#fff;border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;box-shadow:var(--shadow-lg);margin-bottom:30px}
+.hud .sc{font-family:var(--fh);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}
+.hud .sc small{font-size:13px;opacity:.7}
+.hud .bar{flex:1;min-width:160px;height:12px;background:rgba(255,255,255,.14);border-radius:12px;overflow:hidden}
+.hud .bar i{display:block;height:100%;width:0;background:var(--grad-warm);border-radius:12px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.pips{display:flex;gap:8px}
+.pip{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:12px;background:rgba(255,255,255,.1);font-weight:700;font-size:13px;text-decoration:none;color:#fff;transition:.25s}
+.pip:hover{background:rgba(255,255,255,.2)}
+.pip b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.2);font-size:12px}
+.pip.done{background:var(--ok)}
+.pip.done b{background:#fff;color:var(--ok)}
+@media (max-width:700px){.pip span{display:none}.hud{top:68px}}
+.mission{background:#fff;border-radius:30px;box-shadow:var(--shadow-lg);margin-bottom:40px;overflow:hidden;border:1px solid var(--line);position:relative}
+.mission.complete{border-color:#8fe3b6}
+.mhead{padding:28px 32px;color:#fff;display:flex;align-items:center;gap:22px;flex-wrap:wrap;position:relative;overflow:hidden}
+.mhead::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.1)}
+.mhead .mnum{font-family:var(--fh);font-size:58px;font-weight:900;line-height:1;opacity:.95}
+.mhead h3{font-size:clamp(20px,2.6vw,28px)}
+.mhead .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.mhead .meta span{background:rgba(255,255,255,.18);padding:5px 11px;border-radius:9px;font-weight:700;font-size:13px}
+.mhead .mscore{margin-left:auto;background:rgba(0,0,0,.2);padding:12px 18px;border-radius:16px;text-align:center;position:relative;z-index:1}
+.mhead .mscore b{font-family:var(--fh);font-size:28px;display:block;line-height:1}
+.mhead .mscore small{font-weight:700;font-size:12px;opacity:.85}
+.stamp{position:absolute;right:28px;top:110px;z-index:5;font-family:var(--fh);font-weight:900;color:var(--ok);border:4px solid var(--ok);border-radius:14px;padding:6px 14px;transform:rotate(-12deg) scale(0);font-size:20px;background:rgba(255,255,255,.92);transition:transform .5s cubic-bezier(.3,1.8,.4,1);pointer-events:none}
+.mission.complete .stamp{transform:rotate(-12deg) scale(1)}
+.mbody{padding:30px 32px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
+@media (max-width:980px){.mbody{grid-template-columns:1fr;padding:22px}.mhead{padding:22px}}
+.situation{background:#f5f7ff;border-radius:18px;padding:18px 20px;margin-bottom:18px;border-left:5px solid var(--blue)}
+.situation h4,.task h4{font-family:var(--fb);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.task{margin:18px 0}
+.task p{font-weight:600}
+.mode-tabs{display:flex;gap:6px;background:#eef1fb;border-radius:14px;padding:5px;margin:10px 0 14px;width:max-content;max-width:100%}
+.mode-tabs button{padding:9px 14px;border-radius:10px;font-weight:800;font-size:14px;color:var(--muted)}
+.mode-tabs button.on{background:#fff;color:var(--blue);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt{text-align:left;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:15.5px;transition:.2s;display:flex;align-items:center;gap:12px}
+.opt .k{width:30px;height:30px;border-radius:9px;background:#eef1fb;display:grid;place-items:center;font-weight:900;font-size:14px;flex-shrink:0;color:var(--blue-d)}
+.opt code{background:none !important;padding:0 !important;font-size:15px !important;color:var(--ink) !important}
+.opt:hover:not([disabled]){border-color:var(--blue);transform:translateX(4px)}
+.opt.correct,.opt.reveal{border-color:var(--ok);background:#e3fbee;animation:pop .5s}
+.opt.correct .k,.opt.reveal .k{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:#ffeef0;animation:shake .45s}
+.opt.wrong .k{background:var(--bad);color:#fff}
+.opt[disabled]{cursor:default}
+.quiz.solved .opt:not(.correct):not(.reveal){opacity:.55}
+@keyframes pop{40%{transform:scale(1.04)}}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.fb{margin-top:12px;border-radius:14px;padding:0 16px;max-height:0;overflow:hidden;transition:.4s;font-weight:600;font-size:15px}
+.fb.show{max-height:600px;padding:13px 16px}
+.fb.ok{background:#e3fbee;color:#0b6b3b;border:1px solid #9be6bf}
+.fb.no{background:#ffeef0;color:#9b1c2c;border:1px solid #ffbcc4}
+.fb.rv{background:#fff6dc;color:#6e4c00;border:1px solid #ffdf8a}
+.explain{display:none;margin-top:10px;background:#f2f5ff;border-radius:14px;padding:14px 16px;font-size:15px;border-left:4px solid var(--violet)}
+.explain.show{display:block;animation:fadein .4s}
+.explain b.t{display:block;color:var(--violet);font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.inline-input{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.inline-input .pre{font-family:var(--fm);font-weight:700;color:#ff8ad8;background:#0f1533;padding:12px 12px;border-radius:12px 0 0 12px;margin-right:-10px}
+.inline-input .post{font-family:var(--fm);font-weight:700;color:#fff;background:#0f1533;padding:12px 12px;border-radius:0 12px 12px 0;margin-left:-10px}
+.inline-input input{flex:1;min-width:180px;font-family:var(--fm);font-size:16px;padding:12px 14px;border:2px solid #0f1533;background:#141c44;color:var(--yellow);outline:none}
+.inline-input input:focus{border-color:var(--yellow)}
+.inline-input input.ok{border-color:var(--ok);color:#7dffb0}
+.inline-input input.no{border-color:var(--bad);animation:shake .45s}
+.mtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+.bot-tip{display:none;gap:12px;align-items:flex-start;margin-top:14px;animation:fadein .4s}
+.bot-tip.show{display:flex}
+.bot-tip svg{width:56px;height:56px;flex-shrink:0}
+.bot-tip .bub{background:#fff6dc;border:1px solid #ffdf8a;border-radius:4px 18px 18px 18px;padding:12px 15px;font-weight:600;font-size:15px}
+.bot-tip .bub b{display:block;font-size:12px;color:#9a6a00;text-transform:uppercase;letter-spacing:.05em}
+.sim{background:linear-gradient(160deg,#121a48,#1d2d9e);border-radius:22px;padding:22px;color:#fff;position:relative;overflow:hidden}
+.sim h4{font-family:var(--fb);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#9fb0ff;margin-bottom:12px}
+.lockov{position:absolute;inset:0;background:rgba(13,19,60,.78);backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;font-weight:700;z-index:3;transition:.4s}
+.lockov .l{font-size:40px}
+.lockov.hide{opacity:0;pointer-events:none}
+/* door */
+.doorwrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.door{width:150px;height:200px;border-radius:14px 14px 0 0;background:#0a0f30;border:6px solid #3a4aa8;position:relative;overflow:hidden;flex-shrink:0;box-shadow:inset 0 0 40px rgba(0,0,0,.6)}
+.door .room{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#ffe9a3,#ff9f5a 60%,#c1440e);display:grid;place-items:center;font-size:44px}
+.leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(180deg,#4b5fd6,#2e3ea8);transition:transform 1s cubic-bezier(.6,0,.2,1);z-index:2}
+.leaf.l{left:0;border-right:2px solid #1b2672}.leaf.r{right:0;border-left:2px solid #1b2672}
+.leaf::after{content:"";position:absolute;top:46%;width:6px;height:28px;border-radius:3px;background:#a9b8ff}
+.leaf.l::after{right:8px}.leaf.r::after{left:8px}
+.door.open .leaf.l{transform:translateX(-100%)}.door.open .leaf.r{transform:translateX(100%)}
+.door .led{position:absolute;top:10px;left:50%;margin-left:-7px;width:14px;height:14px;border-radius:50%;background:#ff4757;z-index:3;box-shadow:0 0 12px #ff4757}
+.door.open .led{background:#2ee59d;box-shadow:0 0 14px #2ee59d}
+.door.deny{animation:shake .45s}
+.door.deny .led{animation:ledb .25s 3}
+@keyframes ledb{50%{opacity:.2}}
+.keypad{flex:1;min-width:190px}
+.keypad input{width:100%;background:#0b1030;border:2px solid #39448a;border-radius:12px;color:#fff;font-family:var(--fm);font-size:20px;letter-spacing:.2em;padding:10px 14px;margin:6px 0 10px;outline:none}
+.keypad input:focus{border-color:var(--yellow)}
+.simcon{background:#060a1f;border-radius:12px;font-family:var(--fm);font-size:14px;padding:10px 14px;color:#7dffb0;min-height:66px;margin-top:12px;white-space:pre-wrap}
+/* traffic light */
+.tlight-wrap{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.tlight{width:92px;background:#151a36;border-radius:26px;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 14px 30px rgba(0,0,0,.4),inset 0 0 0 4px #2a3166;position:relative;flex-shrink:0}
+.tlight::after{content:"";position:absolute;bottom:-60px;left:50%;width:14px;height:60px;margin-left:-7px;background:#2a3166;border-radius:0 0 6px 6px}
+.lamp{width:68px;height:68px;border-radius:50%;background:#2b2f4d;transition:.35s;box-shadow:inset 0 -6px 12px rgba(0,0,0,.4)}
+.lamp.red.on{background:#ff3b4e;box-shadow:0 0 30px #ff3b4e,0 0 60px rgba(255,59,78,.6)}
+.lamp.yellow.on{background:#ffc928;box-shadow:0 0 30px #ffc928,0 0 60px rgba(255,201,40,.6)}
+.lamp.green.on{background:#22e08a;box-shadow:0 0 30px #22e08a,0 0 60px rgba(34,224,138,.6)}
+.lab{flex:1;min-width:220px}
+.lab .cbtns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.cbtn{font-family:var(--fm);font-weight:700;font-size:14px;padding:9px 13px;border-radius:11px;background:rgba(255,255,255,.12);color:#fff;border:2px solid transparent;transition:.2s}
+.cbtn:hover{border-color:rgba(255,255,255,.5)}
+.cbtn.on{border-color:var(--yellow);background:rgba(255,201,40,.2)}
+.trace{background:#060a1f;border-radius:12px;font-size:14px;padding:10px 14px;min-height:90px;max-height:200px;overflow:auto}
+.trace div{padding:3px 0;animation:fadein .3s}
+.trace .o{color:#7dffb0;font-family:var(--fm);font-weight:700}
+/* security */
+.ctrls{display:grid;gap:12px;margin-bottom:12px}
+.ctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.08);padding:10px 14px;border-radius:14px;font-weight:700}
+.ctrl label{font-family:var(--fm);min-width:96px}
+.ctrl input[type=range]{flex:1;accent-color:var(--yellow);min-width:120px}
+.ctrl .v{font-family:var(--fm);font-weight:800;font-size:20px;color:var(--yellow);min-width:34px;text-align:right}
+.seg{display:flex;background:rgba(0,0,0,.25);border-radius:11px;padding:3px}
+.seg button{padding:7px 14px;border-radius:9px;font-family:var(--fm);font-weight:800;font-size:14px;color:#aab6ec}
+.seg button.on{background:var(--yellow);color:#2b1700}
+.evals{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.ev{font-family:var(--fm);font-size:13.5px;padding:7px 11px;border-radius:10px;background:rgba(255,255,255,.1);animation:fadein .35s}
+.ev b{margin-left:6px}
+.ev.T b{color:#7dffb0}.ev.F b{color:#ff8b95}
+.gate{display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.22);border-radius:16px;padding:14px;margin-top:6px}
+.gate .bar-g{width:120px;height:14px;border-radius:7px;background:repeating-linear-gradient(90deg,#ff3b4e 0 16px,#fff 16px 32px);transform-origin:left center;transition:transform .8s cubic-bezier(.5,0,.2,1)}
+.gate.open .bar-g{transform:rotate(-70deg)}
+.gate .post{width:16px;height:46px;background:#9fb0ff;border-radius:4px}
+.gate .gtext{font-weight:800;font-family:var(--fm)}
+.gate.open .gtext{color:#7dffb0}.gate.closed .gtext{color:#ff8b95}
+.mini{background:#f7f9ff;border-radius:20px;padding:18px;margin-top:16px;border:1px solid var(--line)}
+.mini .codebox{margin:10px 0 12px}
+.mini pre.code{font-size:14px;padding:10px 0}
+.scen{display:grid;gap:14px}
+.scen .quiz{background:#f7f9ff;border-radius:18px;padding:16px;border:1px solid var(--line)}
+.scen .vars{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.scen .vars code{font-size:15px !important}
+/* results */
+.final-res{background:linear-gradient(150deg,#121a48 0%,#2a1f8c 50%,#7a4dff 100%);border-radius:32px;padding:36px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.final-res h3{font-size:clamp(22px,3vw,32px);margin-bottom:6px}
+.rrows{display:grid;gap:14px;margin:24px 0}
+.rrow{display:grid;grid-template-columns:220px 1fr 70px;gap:14px;align-items:center;font-weight:700}
+.rrow .rb{height:16px;background:rgba(255,255,255,.14);border-radius:10px;overflow:hidden}
+.rrow .rb i{display:block;height:100%;width:0;border-radius:10px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.rrow .rv{font-family:var(--fh);text-align:right}
+@media (max-width:640px){.rrow{grid-template-columns:1fr 60px}.rrow .rb{grid-column:1/-1;grid-row:2}}
+.total{display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:rgba(255,255,255,.1);border-radius:22px;padding:20px 24px}
+.total .big{font-family:var(--fh);font-size:54px;font-weight:900;line-height:1}
+.total .big small{font-size:22px;opacity:.7}
+.total .lv{font-weight:800;font-size:18px}
+.total .lv small{display:block;font-weight:600;opacity:.8;font-size:14.5px}
+.badges{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+.badge{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.25);border-radius:18px;padding:12px 16px;filter:grayscale(1);opacity:.55;transition:.5s}
+.badge .bi{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.15)}
+.badge b{display:block;font-size:15px}.badge small{font-size:12.5px;opacity:.85}
+.badge.got{filter:none;opacity:1;border-style:solid;border-color:var(--yellow);background:rgba(255,201,40,.15);animation:pop .6s}
+.badge.got .bi{background:var(--grad-warm)}
+
+/* ===== resources ===== */
+.resc{display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.resc .top{display:flex;align-items:center;gap:14px}
+.resc h3{font-size:20px}
+.resc .kv{font-size:15px}
+.resc .kv b{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.resc .ln{margin-top:auto;font-weight:800;font-size:14.5px;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.resc .ln:hover{text-decoration:underline}
+.resc::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:30px;transform:rotate(20deg);opacity:.08;background:var(--c,var(--blue))}
+
+/* ===== assessment ===== */
+.ways .card{border-top:6px solid}
+.ways .card h3{font-size:20px;margin:12px 0 8px}
+.ways .card ul{padding-left:18px;font-size:15px}
+.ways .card li{margin:4px 0}
+.rubric{overflow-x:auto;margin-top:36px}
+.rubric table{width:100%;min-width:720px;border-collapse:separate;border-spacing:0;background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.rubric th{background:var(--ink);color:#fff;padding:15px 16px;text-align:left;font-size:14px}
+.rubric td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:middle}
+.rubric tr:hover td{background:#f8faff}
+.rubric .crit{font-weight:800}
+.pts{display:flex;gap:6px}
+.pts button{width:38px;height:38px;border-radius:11px;border:2px solid var(--line);font-weight:800;transition:.2s;background:#fff}
+.pts button:hover{border-color:var(--blue)}
+.pts button.on{background:var(--blue);color:#fff;border-color:var(--blue);transform:scale(1.08)}
+.rsum{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:18px;background:#fff;border-radius:22px;padding:20px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.rsum .big{font-family:var(--fh);font-size:46px;font-weight:900;color:var(--blue)}
+.rsum .big small{font-size:20px;color:var(--muted)}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.levels div{border-radius:18px;padding:16px;font-weight:700;border:3px solid transparent;transition:.3s}
+.levels div b{font-family:var(--fh);font-size:20px;display:block}
+.levels div.on{border-color:var(--ink);transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+@media (max-width:760px){.levels{grid-template-columns:1fr 1fr}}
+.selfcheck{display:grid;gap:10px;margin-top:10px}
+.selfcheck label{display:flex;gap:12px;align-items:center;background:#f5f7ff;padding:12px 14px;border-radius:14px;font-weight:600;cursor:pointer;transition:.2s}
+.selfcheck label:hover{background:#ebf0ff}
+.selfcheck input{width:22px;height:22px;accent-color:var(--ok)}
+.peer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px}
+.peer div{border-radius:16px;padding:14px;font-weight:600;font-size:15px}
+@media (max-width:760px){.peer{grid-template-columns:1fr}}
+
+/* ===== reflection ===== */
+.rlight{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rbtn{border-radius:26px;padding:26px 22px;color:#fff;text-align:left;font-weight:700;font-size:16.5px;display:flex;flex-direction:column;gap:14px;transition:.3s;position:relative;overflow:hidden;min-height:190px;box-shadow:var(--shadow)}
+.rbtn .c{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;font-size:30px;box-shadow:0 0 0 8px rgba(255,255,255,.25)}
+.rbtn:hover{transform:translateY(-6px) scale(1.02)}
+.rbtn.on{transform:translateY(-8px) scale(1.04);box-shadow:0 0 0 5px #fff,0 0 0 9px currentColor,var(--shadow-lg)}
+.rbtn.dim{opacity:.45;filter:saturate(.6)}
+.rb-g{background:linear-gradient(150deg,#11b866,#22e08a);color:#11b866}
+.rb-y{background:linear-gradient(150deg,#f5a300,#ffc928);color:#f5a300}
+.rb-r{background:linear-gradient(150deg,#e8283f,#ff6b7a);color:#e8283f}
+.rbtn span,.rbtn .c{color:#fff}
+.rbtn .c{color:initial}
+@media (max-width:760px){.rlight{grid-template-columns:1fr}.rbtn{min-height:auto}}
+.rmsg{margin-top:20px;border-radius:22px;padding:22px 26px;display:none;gap:18px;align-items:flex-start;animation:fadein .4s;background:#fff;border:2px solid;box-shadow:var(--shadow)}
+.rmsg.show{display:flex}
+.rmsg .e{font-size:42px}
+.rq{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.rq .card{padding:20px}
+.rq h4{font-family:var(--fb);font-weight:800;font-size:16px;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+.rq textarea{width:100%;min-height:80px;border:2px solid var(--line);border-radius:14px;padding:12px;font-family:inherit;font-size:15px;resize:vertical;outline:none;transition:.2s}
+.rq textarea:focus{border-color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{background:#eef2ff;color:var(--blue-d);font-weight:700;font-size:13px;padding:6px 10px;border-radius:9px}
+.chips button:hover{background:#dfe7ff}
+@media (max-width:760px){.rq{grid-template-columns:1fr}}
+
+/* ===== homework ===== */
+.hw{display:flex;flex-direction:column;gap:12px;border-top:8px solid;position:relative}
+.hw .lvl{display:flex;align-items:center;justify-content:space-between}
+.hw .lvl b{font-family:var(--fh);font-size:20px}
+.stars{font-size:20px;letter-spacing:2px}
+.hw .reqs{font-size:14.5px;padding-left:18px}
+.hw .reqs li{margin:3px 0}
+.hw .ex{background:#0f1533;color:#7dffb0;font-family:var(--fm);font-size:13.5px;border-radius:12px;padding:10px 14px;white-space:pre-wrap}
+.hw .ex .p{color:#8e9ad0}
+.hw .starter{display:none}
+.hw .starter.show{display:block;animation:fadein .4s}
+
+/* ===== rationale ===== */
+.rat{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.rat .card h3{font-size:20px;margin:12px 0 8px}
+.rat .card p{font-size:15.5px;color:#2c3358}
+.rat .card p+p{margin-top:8px}
+@media (max-width:760px){.rat{grid-template-columns:1fr}}
+.mapping{margin-top:26px;overflow-x:auto}
+.mapping table{width:100%;min-width:700px;border-collapse:separate;border-spacing:0;background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.mapping th{background:#eef2ff;padding:13px 14px;text-align:left;font-size:13.5px;color:var(--muted)}
+.mapping td{padding:13px 14px;border-bottom:1px solid var(--line);font-size:15px}
+
+/* ===== finish ===== */
+.finish{background:radial-gradient(800px 400px at 50% 0%,rgba(255,201,40,.3),transparent 60%),linear-gradient(160deg,#0d1650,#2459ff 60%,#12c6bd);color:#fff;text-align:center;padding:110px 0 70px;position:relative;overflow:hidden}
+.finish h2{font-size:clamp(36px,7vw,84px);font-weight:900;margin:18px 0}
+.finish h2 span{background:linear-gradient(90deg,#ffd96b,#fff,#7ff7ef);-webkit-background-clip:text;background-clip:text;color:transparent}
+.finish p{max-width:720px;margin:0 auto;font-size:18px;opacity:.92}
+.fstats{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:34px 0}
+.fstats div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:16px 22px;min-width:150px}
+.fstats b{font-family:var(--fh);font-size:30px;display:block}
+.trophy{font-size:90px;display:inline-block;animation:floaty 3s ease-in-out infinite}
+footer{background:#0a1040;color:#aab4e6;padding:30px 0;font-size:14px}
+footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
+footer b{color:#fff}
+
+/* ===== overlay ===== */
+.overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,12,40,.78);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex;animation:fadein .4s}
+.modal{background:linear-gradient(160deg,#fff,#f1f4ff);border-radius:32px;max-width:560px;width:100%;padding:38px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:modal .6s cubic-bezier(.3,1.6,.4,1)}
+@keyframes modal{from{transform:scale(.6);opacity:0}}
+.modal h2{font-size:clamp(28px,5vw,40px);font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0}
+.modal .sc{font-family:var(--fh);font-size:60px;font-weight:900;color:var(--orange)}
+.modal .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:2500}
+#toTop{position:fixed;right:22px;bottom:22px;width:54px;height:54px;border-radius:18px;background:var(--grad);color:#fff;font-size:22px;box-shadow:0 12px 28px rgba(36,89,255,.4);z-index:900;opacity:0;transform:translateY(20px);pointer-events:none;transition:.3s}
+#toTop.show{opacity:1;transform:none;pointer-events:auto}
+#toTop:hover{transform:translateY(-4px)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:16px;font-weight:700;z-index:1500;transition:transform .45s cubic-bezier(.3,1.5,.4,1);box-shadow:var(--shadow-lg);max-width:92%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.floatpts{position:fixed;z-index:1600;font-family:var(--fh);font-weight:900;font-size:26px;color:var(--orange);pointer-events:none;animation:fp 1.2s forwards;text-shadow:0 2px 0 #fff}
+@keyframes fp{to{transform:translateY(-70px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important;transition-duration:.001s !important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="scrollbar"></div>
+<canvas id="confetti"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gBot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd8ff"/></linearGradient>
+    <symbol id="bot" viewBox="0 0 64 64">
+      <line x1="32" y1="4" x2="32" y2="14" stroke="#7a4dff" stroke-width="3"/>
+      <circle cx="32" cy="5" r="4" fill="#ff7a1a"/>
+      <rect x="10" y="14" width="44" height="34" rx="12" fill="url(#gBot)" stroke="#2459ff" stroke-width="3"/>
+      <rect x="16" y="21" width="32" height="18" rx="8" fill="#121838"/>
+      <circle cx="25" cy="30" r="4" fill="#5ff3ea"/><circle cx="39" cy="30" r="4" fill="#5ff3ea"/>
+      <rect x="20" y="50" width="24" height="10" rx="4" fill="#2459ff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ NAV ============ -->
+<nav class="top" id="nav">
+  <div class="wrap navin">
+    <a class="logo" href="#hero"><span class="lg">if</span><span>Умный город</span></a>
+    <div class="links" id="links">
+      <a href="#passport">Паспорт</a>
+      <a href="#goals">Цели</a>
+      <a href="#methods">Методы</a>
+      <a href="#lesson">Ход урока</a>
+      <a href="#missions">Миссии</a>
+      <a href="#resources">Ресурсы</a>
+      <a href="#assessment">Оценивание</a>
+      <a href="#reflection">Рефлексия</a>
+      <a href="#homework">Д/З</a>
+      <a href="#rationale">Обоснование</a>
+    </div>
+    <a class="scorepill" id="scorePill" href="#missions" data-tip="Баллы за три миссии">⭐ <span id="navScore">0</span>/30</a>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</nav>
+
+<!-- ============ 1. HERO ============ -->
+<header class="hero" id="hero">
+  <div class="shape" style="width:90px;height:90px;background:var(--orange);top:16%;left:4%"></div>
+  <div class="shape" style="width:60px;height:60px;background:var(--teal);bottom:14%;left:44%;animation-delay:-4s;border-radius:50%"></div>
+  <div class="shape" style="width:120px;height:120px;background:var(--violet);top:10%;right:3%;animation-delay:-8s"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="kicker"><span class="dot"></span>Практическое занятие №12 · Методика преподавания информатики</span>
+      <h1><span class="shine">Я — УЧИТЕЛЬ ИНФОРМАТИКИ!</span></h1>
+      <div class="sub">Миссия: спасти умный город</div>
+      <div class="hero-chips">
+        <span>📘 <b>7 класс</b></span>
+        <span>🗓 <b>III четверть</b></span>
+        <span>🤖 Информатика и искусственный интеллект</span>
+        <span>🐍 Программирование алгоритмов ветвления на языке Python</span>
+      </div>
+      <a class="btn btn-start" href="#passport" id="startBtn">НАЧАТЬ УРОК <span class="arr">↓</span></a>
+    </div>
+    <div class="hero-art reveal d2">
+      <svg viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Иллюстрация умного города с роботом">
+        <defs>
+          <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b7bff"/><stop offset="1" stop-color="#2a3cb8"/></linearGradient>
+          <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a7bff"/><stop offset="1" stop-color="#5130c9"/></linearGradient>
+          <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fe0d6"/><stop offset="1" stop-color="#0d8f9b"/></linearGradient>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a8f"/><stop offset="1" stop-color="#3b2fa8"/></linearGradient>
+          <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ff9f3a" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect x="20" y="20" width="560" height="430" rx="38" fill="url(#sky)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <circle cx="470" cy="100" r="90" fill="url(#sun)" opacity=".7"/>
+        <circle cx="470" cy="100" r="34" fill="#ffd34d"/>
+        <!-- buildings -->
+        <g id="city">
+          <rect x="50" y="200" width="70" height="200" rx="6" fill="url(#b1)"/>
+          <rect x="130" y="140" width="80" height="260" rx="6" fill="url(#b2)"/>
+          <rect x="146" y="112" width="48" height="30" rx="4" fill="#7c5cf0"/>
+          <line x1="170" y1="112" x2="170" y2="80" stroke="#bda8ff" stroke-width="4"/>
+          <circle cx="170" cy="78" r="6" fill="#ff7a1a" class="win"/>
+          <rect x="220" y="230" width="66" height="170" rx="6" fill="url(#b3)"/>
+          <rect x="296" y="170" width="76" height="230" rx="6" fill="url(#b1)"/>
+          <rect x="382" y="215" width="62" height="185" rx="6" fill="url(#b2)"/>
+          <rect x="454" y="180" width="86" height="220" rx="6" fill="url(#b3)"/>
+          <path d="M454 180 L497 145 L540 180 Z" fill="#0d8f9b"/>
+        </g>
+        <g id="windows"></g>
+        <!-- road -->
+        <rect x="20" y="400" width="560" height="50" fill="#141a44"/>
+        <path d="M20 450 H580 V420 Q580 450 550 450 Z" fill="#141a44"/>
+        <line x1="40" y1="425" x2="560" y2="425" stroke="#ffd34d" stroke-width="4" class="roadline"/>
+        <!-- traffic light -->
+        <g transform="translate(66,300)">
+          <rect x="10" y="40" width="6" height="62" fill="#3a4386"/>
+          <rect x="0" y="0" width="26" height="62" rx="9" fill="#0e1235" stroke="#3a4386" stroke-width="2"/>
+          <circle cx="13" cy="13" r="7" fill="#ff3b4e"><animate attributeName="opacity" values="1;.2;.2;1" dur="4s" repeatCount="indefinite"/></circle>
+          <circle cx="13" cy="31" r="7" fill="#ffc928"><animate attributeName="opacity" values=".2;1;.2;.2" dur="4s" repeatCount="indefinite"/></circle>
+          <circle cx="13" cy="49" r="7" fill="#22e08a"><animate attributeName="opacity" values=".2;.2;1;.2" dur="4s" repeatCount="indefinite"/></circle>
+        </g>
+        <!-- drone -->
+        <g class="drone">
+          <g transform="translate(330,70)">
+            <rect x="-30" y="0" width="60" height="16" rx="8" fill="#e9edff"/>
+            <rect x="-8" y="14" width="16" height="10" rx="3" fill="#2459ff"/>
+            <line x1="-30" y1="2" x2="-30" y2="-6" stroke="#e9edff" stroke-width="3"/>
+            <line x1="30" y1="2" x2="30" y2="-6" stroke="#e9edff" stroke-width="3"/>
+            <ellipse cx="-30" cy="-7" rx="16" ry="3" fill="#9fdcff" class="spin"/>
+            <ellipse cx="30" cy="-7" rx="16" ry="3" fill="#9fdcff" class="spin"/>
+            <circle cx="0" cy="8" r="3" fill="#ff7a1a"/>
+          </g>
+        </g>
+        <!-- code bubble -->
+        <g class="floaty" style="animation-delay:-2s">
+          <rect x="40" y="48" width="230" height="92" rx="18" fill="#0f1533" stroke="#5ff3ea" stroke-width="2"/>
+          <path d="M210 140 L230 160 L232 140 Z" fill="#0f1533" stroke="#5ff3ea" stroke-width="2"/>
+          <text x="58" y="78" font-family="JetBrains Mono,monospace" font-size="15" fill="#ff8ad8">if <tspan fill="#e6e9ff">city.alarm:</tspan></text>
+          <text x="94" y="100" font-family="JetBrains Mono,monospace" font-size="15" fill="#5ff3ea">fix_city()</text>
+          <text x="58" y="122" font-family="JetBrains Mono,monospace" font-size="15" fill="#ff8ad8">else<tspan fill="#e6e9ff">: </tspan><tspan fill="#ffd96b">"OK"</tspan></text>
+        </g>
+        <!-- robot -->
+        <g class="floaty">
+          <g transform="translate(372,262)">
+            <ellipse cx="60" cy="178" rx="54" ry="9" fill="#000" opacity=".25"/>
+            <line x1="60" y1="0" x2="60" y2="-22" stroke="#bda8ff" stroke-width="5"/>
+            <circle cx="60" cy="-26" r="9" fill="#ff7a1a"><animate attributeName="r" values="9;11;9" dur="1.4s" repeatCount="indefinite"/></circle>
+            <rect x="8" y="0" width="104" height="80" rx="26" fill="#f4f6ff" stroke="#2459ff" stroke-width="5"/>
+            <rect x="22" y="16" width="76" height="44" rx="18" fill="#121838"/>
+            <g class="blink" style="transform-origin:60px 38px"><circle cx="44" cy="38" r="9" fill="#5ff3ea"/><circle cx="76" cy="38" r="9" fill="#5ff3ea"/></g>
+            <path d="M48 52 Q60 60 72 52" stroke="#5ff3ea" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <rect x="20" y="88" width="80" height="70" rx="20" fill="#2459ff"/>
+            <rect x="36" y="102" width="48" height="26" rx="8" fill="#0f1533"/>
+            <text x="60" y="121" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="700" fill="#7dffb0">if</text>
+            <circle cx="46" cy="142" r="5" fill="#ffc928"/><circle cx="60" cy="142" r="5" fill="#ff7a1a"/><circle cx="74" cy="142" r="5" fill="#22e08a"/>
+            <rect x="-6" y="96" width="22" height="50" rx="11" fill="#7a4dff"/>
+            <g><rect x="104" y="70" width="22" height="50" rx="11" fill="#7a4dff" transform="rotate(-35 115 96)"/>
+               <animateTransform attributeName="transform" type="rotate" values="0 112 96;-14 112 96;0 112 96" dur="1.8s" repeatCount="indefinite"/></g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="scrollhint"><i></i>прокрутите вниз</div>
+</header>
+
+<!-- ============ 2. PASSPORT ============ -->
+<section class="sec white" id="passport">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 2</span>
+      <h2>Паспорт <span class="g">урока</span></h2>
+      <p>Наведите курсор (или нажмите) на карточку, чтобы увидеть пояснение.</p>
+      <div class="legend"><span class="src law">📜 Сведения из приказа №399</span><span class="src own">✏️ Авторское методическое решение</span></div>
+    </div>
+    <div class="grid g3">
+      <div class="flip reveal d1" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-b">🎓</div><div class="lbl">Класс</div><div class="val big">7</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">Ученики 12–13 лет: стремятся к самостоятельности, ценят командную работу и соревнование. Отсюда — игровой сюжет и работа в командах разработчиков.</div>
+      </div></div>
+      <div class="flip reveal d2" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-o">⏱</div><div class="lbl">Продолжительность</div><div class="val big">45 мин</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">8 этапов урока. На практику отведено 18 минут (12 — в командах, 6 — индивидуально), то есть 40% времени урока.</div>
+      </div></div>
+      <div class="flip reveal d3" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-t">🗓</div><div class="lbl">Четверть</div><div class="val big">III</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">Тема проводится в III четверти по календарно-тематическому плану. Ученики уже знают линейные алгоритмы, переменные и ввод-вывод в Python.</div>
+      </div></div>
+      <div class="flip reveal d1" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-v">🧠</div><div class="lbl">Раздел <span class="src law">📜 №399</span></div><div class="val">«Компьютерное мышление и программирование»</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">Цели обучения этого раздела в 7 классе имеют коды вида 7.3.x.x. Цифра «3» означает номер раздела в программе.</div>
+      </div></div>
+      <div class="flip reveal d2" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-y">🐍</div><div class="lbl">Тема урока</div><div class="val">«Программирование алгоритмов ветвления на языке Python»</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">Содержание: if, if-else, if-elif-else, составные условия с and, or, not. Каждую конструкцию ученики применяют в миссиях «Умного города».</div>
+      </div></div>
+      <div class="flip reveal d3" tabindex="0"><div class="flip-in">
+        <div class="face"><div class="ico i-g">🎮</div><div class="lbl">Форма проведения <span class="src own">✏️</span></div><div class="val">Комбинированный урок с игровыми и практическими элементами</div><div class="turn">↻ подробнее</div></div>
+        <div class="face back">Урок объединяет повторение, изучение нового, практику и контроль. Всё связано сюжетом «Миссия: спасти умный город»: баллы, миссии, достижения.</div>
+      </div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:34px">
+      <div class="card reveal">
+        <h3 style="font-size:21px;margin-bottom:6px">📍 Место темы в учебной программе <span class="src law">📜 Приказ №399</span></h3>
+        <p style="color:var(--muted);font-size:15px;margin-bottom:16px">Приложение 54 к приказу Министра просвещения РК от 16 сентября 2022 года №399. Типовая учебная программа по предмету «Информатика и искусственный интеллект» для 5–9 классов уровня основного среднего образования.</p>
+        <div class="tree">
+          <div class="tnode"><div class="rail"><b style="background:var(--blue)">1</b><i></i></div><div class="tb"><small>Учебный предмет</small><div>Информатика и искусственный интеллект</div></div></div>
+          <div class="tnode"><div class="rail"><b style="background:var(--violet)">2</b><i></i></div><div class="tb"><small>Класс</small><div>7 класс (основное среднее образование)</div></div></div>
+          <div class="tnode"><div class="rail"><b style="background:var(--teal)">3</b><i></i></div><div class="tb"><small>Раздел</small><div>Компьютерное мышление и программирование</div></div></div>
+          <div class="tnode"><div class="rail"><b style="background:var(--orange)">4</b><i></i></div><div class="tb"><small>Цели обучения урока</small><div>7.3.1.1 · 7.3.1.2 <span style="color:var(--muted);font-weight:600">(основные)</span>; 7.3.3.1 <span style="color:var(--muted);font-weight:600">(дополнительная)</span></div></div></div>
+          <div class="tnode"><div class="rail"><b style="background:var(--yellow);color:#3a2300">5</b></div><div class="tb" style="padding-bottom:0"><small>Тема урока</small><div>Программирование алгоритмов ветвления на языке Python</div></div></div>
+        </div>
+      </div>
+      <div class="card reveal d2">
+        <h3 style="font-size:21px;margin-bottom:6px">🔢 Как читать код цели обучения</h3>
+        <p style="color:var(--muted);font-size:15px">Код цели состоит из четырёх чисел: класс, раздел, подраздел и номер цели в подразделе.</p>
+        <div class="codecode">
+          <div><span style="background:var(--blue)" data-tip="Класс">7</span><em>класс</em></div><b style="font-size:24px">.</b>
+          <div><span style="background:var(--violet)" data-tip="Раздел программы">3</span><em>раздел</em></div><b style="font-size:24px">.</b>
+          <div><span style="background:var(--teal)" data-tip="Подраздел">1</span><em>подраздел</em></div><b style="font-size:24px">.</b>
+          <div><span style="background:var(--orange)" data-tip="Порядковый номер цели">1</span><em>цель</em></div>
+        </div>
+        <div style="margin-top:22px;display:grid;gap:10px">
+          <div style="background:#f5f7ff;border-radius:14px;padding:12px 14px"><code>7.3.1.1</code> — условные конструкции <code>if</code>, <code>if + else</code>, <code>if + elif + else</code></div>
+          <div style="background:#f5f7ff;border-radius:14px;padding:12px 14px"><code>7.3.1.2</code> — составные условия с <code>and</code>, <code>or</code>, <code>not</code></div>
+          <div style="background:#f5f7ff;border-radius:14px;padding:12px 14px"><code>7.3.3.1</code> — знания в виде правил и моделей, простые системы принятия решений</div>
+        </div>
+        <p style="margin-top:14px;font-size:14.5px;color:var(--muted)">Цели 7.3.1.1 и 7.3.1.2 стоят рядом в одном подразделе, поэтому их логично изучать на одном уроке: сначала ветвление, затем составные условия.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. GOALS ============ -->
+<section class="sec alt" id="goals">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 3</span>
+      <h2>Цель и ожидаемые <span class="g">результаты обучения</span></h2>
+      <p>Официальные цели обучения взяты из типовой учебной программы. Цель урока и ожидаемые результаты сформулированы на их основе.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card goal lift reveal d1">
+        <span class="src law">📜 Приказ №399 · цель обучения</span>
+        <div class="code-badge" style="margin-top:12px">7.3.1.1</div>
+        <h3>Применять условные конструкции if, if + else, if + elif + else в зависимости от поставленной задачи.</h3>
+        <div class="tags" style="margin-top:12px"><span>Миссия 1</span><span>Миссия 2</span></div>
+      </div>
+      <div class="card goal lift reveal d2">
+        <span class="src law">📜 Приказ №399 · цель обучения</span>
+        <div class="code-badge" style="margin-top:12px">7.3.1.2</div>
+        <h3>Применять составные условия, используя логические операции (and, or, not).</h3>
+        <div class="tags" style="margin-top:12px"><span>Миссия 3</span><span>Мини-вопросы</span></div>
+      </div>
+    </div>
+    <div class="card goal extra reveal" style="margin-top:20px">
+      <span class="src law">📜 Приказ №399 · дополнительная цель</span>
+      <div class="code-badge" style="margin-top:10px">7.3.3.1</div>
+      <h3 style="font-size:17px">Объяснять, что знания могут быть представлены в виде правил или моделей, моделировать простые системы принятия решений на основе условий и данных.</h3>
+      <p style="color:var(--muted);font-size:15px">Мы касаемся её на уровне идеи: «Система безопасности города» и домашнее задание об умном доме — это простые системы принятия решений по правилам «если… то…».</p>
+    </div>
+
+    <div class="mgoal reveal">
+      <small>🎯 Цель урока · <span class="src own" style="color:#056b65">✏️ Авторская формулировка</span></small>
+      <p>«Сформировать у учащихся умение использовать условные конструкции и составные логические условия языка Python для разработки программ, принимающих решения в зависимости от заданных условий».</p>
+    </div>
+
+    <h3 class="reveal" style="font-size:24px;margin-bottom:20px">Ожидаемые результаты <span class="src own">✏️ Авторская разработка</span></h3>
+    <div class="results">
+      <div class="res k reveal d1">
+        <h3>📘 Знают</h3><div class="lvl">Уровень знания и понимания</div>
+        <ul>
+          <li>назначение условных конструкций;</li>
+          <li>особенности работы if, if-else, if-elif-else;</li>
+          <li>назначение логических операций and, or, not.</li>
+        </ul>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="res u reveal d2">
+        <h3>🛠 Умеют</h3><div class="lvl">Уровень применения</div>
+        <ul>
+          <li>записывать условные конструкции на языке Python;</li>
+          <li>определять результат выполнения программы;</li>
+          <li>использовать составные логические условия;</li>
+          <li>находить и исправлять ошибки в условных конструкциях.</li>
+        </ul>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="res a reveal d3">
+        <h3>🚀 Применяют</h3><div class="lvl">Уровень навыков высокого порядка</div>
+        <ul>
+          <li>создают программы для решения практических задач;</li>
+          <li>разрабатывают простые системы принятия решений;</li>
+          <li>используют условия для моделирования реальных ситуаций.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. METHODS ============ -->
+<section class="sec white" id="methods">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 4</span>
+      <h2>Методы и <span class="g">приёмы обучения</span></h2>
+      <p>Методы выбраны автором урока. Приказ №399 задаёт цели обучения, а не методы. Нажмите на метод, чтобы посмотреть, как он работает на уроке.</p>
+      <div class="legend"><span class="src own">✏️ Авторское методическое решение</span></div>
+    </div>
+
+    <div class="card main-method reveal">
+      <div class="mm-ico">🕹️</div>
+      <div>
+        <span class="src own">Главный метод урока</span>
+        <h3>Игровое проблемное обучение</h3>
+        <p>Урок построен вокруг проблемы, которую ученики решают внутри игрового сюжета. В «умном городе» сломались системы, принимающие решения: светофоры, двери, охрана. Чтобы их «починить», нужно научить компьютер выбирать действие в зависимости от условия. Проблема рождает потребность в новом знании (условных конструкциях), а игра (миссии, баллы, достижения) поддерживает интерес до конца урока.</p>
+        <div class="why">
+          <div><b>🧩</b>Подростку важен смысл: «зачем это нужно?» — сюжет отвечает на этот вопрос сразу.</div>
+          <div><b>🛡️</b>В игре ошибка — это «баг», который можно исправить. Ученики меньше боятся пробовать.</div>
+          <div><b>👥</b>Подростки любят общаться и соревноваться — отсюда команды разработчиков.</div>
+          <div><b>⚡</b>Миссии дают быструю обратную связь, и внимание держится все 45 минут.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mtiles" id="mtiles"></div>
+    <div id="mdetail"></div>
+
+    <div class="matrix reveal">
+      <h3 style="font-size:20px;margin-bottom:12px">🗺 Карта методов по этапам урока</h3>
+      <table id="matrix"></table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. LESSON ============ -->
+<section class="sec alt" id="lesson">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 5</span>
+      <h2>Ход урока · <span class="g">45 минут</span></h2>
+      <p>Ширина блока на шкале соответствует длительности этапа. Нажмите на этап, чтобы увидеть сценарий. Таймер поможет вести урок в реальном времени.</p>
+      <div class="legend"><span class="src own">✏️ Авторский сценарий урока</span></div>
+    </div>
+
+    <div class="timer reveal">
+      <span style="font-size:24px">⏱</span>
+      <span class="clock" id="tClock">00:00</span>
+      <span class="lbl" id="tLbl">Таймер урока остановлен</span>
+      <button class="btn btn-p btn-sm" id="tStart">▶ Старт</button>
+      <button class="btn btn-g btn-sm" id="tReset">↺ Сброс</button>
+      <label style="display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--muted)" data-tip="Ускоренный режим для демонстрации: 1 минута урока = 1 секунда"><input type="checkbox" id="tFast" style="accent-color:var(--orange);width:18px;height:18px"> демо ×60</label>
+      <div class="track"><i id="tTrack"></i></div>
+    </div>
+
+    <div class="tl-bar reveal" id="tlBar"></div>
+    <div class="tl-ruler"><span>0 мин</span><span>15</span><span>30</span><span>45 мин</span></div>
+    <div id="stageBox"></div>
+    <div class="stage-nav"><button class="btn btn-g btn-sm" id="stPrev">← Предыдущий этап</button><button class="btn btn-p btn-sm" id="stNext">Следующий этап →</button></div>
+
+    <!-- Motivation scenario -->
+    <div style="margin-top:60px" class="reveal">
+      <h3 style="font-size:26px;margin-bottom:6px">🎬 Сценарий мотивации: «Город сломался!»</h3>
+      <p style="color:var(--muted);margin-bottom:18px">Этап 2 · 5 минут · проблемная ситуация</p>
+      <div class="dialog">
+        <div class="msg"><div class="av i-b">👩‍🏫</div><div class="bub"><b>Учитель</b>Внимание, разработчики! В умный город пришло срочное сообщение. Светофоры мигают хаотично, электронные двери не пускают жителей, а система безопасности пропускает в закрытую зону всех подряд. <i>(На экране — анимация «сломанного» города.)</i></div></div>
+        <div class="msg"><div class="av i-b">👩‍🏫</div><div class="bub"><b>Учитель · проблемный вопрос</b>«Как можно научить компьютер самостоятельно принимать решения в зависимости от ситуации?»</div></div>
+        <div class="msg st"><div class="av i-t">🧑‍🎓</div><div class="bub"><b>Ученик</b>Нужно написать программу: <i>если</i> горит зелёный — ехать, <i>иначе</i> стоять.</div></div>
+        <div class="msg st"><div class="av i-t">👧</div><div class="bub"><b>Ученица</b>Компьютер должен что-то проверять. Например, правильный ли пароль, — и только потом открывать дверь.</div></div>
+        <div class="msg"><div class="av i-b">👩‍🏫</div><div class="bub"><b>Учитель · подводящий диалог</b>Верно! Вы заметили слова «если» и «иначе». Программа проверяет <b>условие</b> и выбирает одну из <b>ветвей</b>. Как называется такой алгоритм? <i>(Разветвляющийся.)</i> На языке Python для этого есть специальные команды. Сформулируйте тему урока.</div></div>
+        <div class="msg st"><div class="av i-o">🧑‍💻</div><div class="bub"><b>Капитан команды</b>«Программирование ветвления на Python»! Будем учить город принимать решения.</div></div>
+        <div class="msg"><div class="av i-b">👩‍🏫</div><div class="bub"><b>Учитель</b>Отлично. Тема: «Программирование алгоритмов ветвления на языке Python». Сегодня у вас три миссии. За каждую команда получает баллы и достижения. Начинаем спасать город!</div></div>
+      </div>
+    </div>
+
+    <!-- New material -->
+    <div style="margin-top:64px" id="theory">
+      <div class="reveal">
+        <h3 style="font-size:26px;margin-bottom:6px">📚 Объяснение нового материала</h3>
+        <p style="color:var(--muted);margin-bottom:18px">Этап 4 · 10 минут. Меняйте значения в нижней панели редактора и нажимайте «▶ Запустить». Так ученики исследуют, как программа выбирает ветвь.</p>
+      </div>
+      <div class="tabs reveal" id="tTabs">
+        <button class="tab on" data-t="0">if</button>
+        <button class="tab" data-t="1">if-else</button>
+        <button class="tab" data-t="2">if-elif-else</button>
+        <button class="tab" data-t="3">and · or · not</button>
+      </div>
+
+      <div class="tpanel on" data-p="0">
+        <div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>weather.py</span><button class="run" data-run="0">▶ Запустить</button></div>
+            <pre class="code" data-dyn="0"></pre>
+            <div class="trybox">Попробуй: temperature = <input type="number" data-in="0" value="30"></div>
+            <div class="console" data-out="0"><span class="p">&gt;&gt;&gt; нажмите «Запустить»</span></div>
+          </div>
+        </div>
+        <div class="card explain-card">
+          <h3>Условие <code>if</code> — «если»</h3>
+          <p>Команды внутри <code>if</code> выполняются, <b>только если условие истинно</b> (True). Если условие ложно, программа их пропускает.</p>
+          <div class="flow">
+            <svg viewBox="0 0 360 200"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5a6287"/></marker></defs>
+              <polygon points="180,10 290,55 180,100 70,55" fill="#e5ecff" stroke="#2459ff" stroke-width="2.5"/>
+              <text x="180" y="60" text-anchor="middle" font-size="14" fill="#121838">temperature &gt; 25 ?</text>
+              <line x1="180" y1="100" x2="180" y2="135" stroke="#5a6287" stroke-width="2" marker-end="url(#ar)"/><text x="190" y="122" font-size="12" fill="#16b46a">Да</text>
+              <rect x="110" y="137" width="140" height="40" rx="10" fill="#dcf7e9" stroke="#16b46a" stroke-width="2"/><text x="180" y="162" text-anchor="middle" font-size="13" fill="#121838">print("Жарко")</text>
+              <path d="M290 55 H330 V190 H180" fill="none" stroke="#5a6287" stroke-width="2" marker-end="url(#ar)"/><text x="296" y="48" font-size="12" fill="#ef4a5b">Нет</text>
+            </svg>
+          </div>
+          <ul>
+            <li>После условия обязательно ставится двоеточие <code>:</code></li>
+            <li>Тело условия пишется с отступом в 4 пробела</li>
+            <li>Для сравнения используют <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tpanel" data-p="1">
+        <div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>access.py</span><button class="run" data-run="1">▶ Запустить</button></div>
+            <pre class="code" data-dyn="1"></pre>
+            <div class="trybox">Попробуй: age = <input type="number" data-in="1" value="15"></div>
+            <div class="console" data-out="1"><span class="p">&gt;&gt;&gt; нажмите «Запустить»</span></div>
+          </div>
+        </div>
+        <div class="card explain-card">
+          <h3>Конструкция <code>if-else</code> — «если… иначе…»</h3>
+          <p>Всегда выполняется <b>ровно одна</b> из двух ветвей: ветвь <code>if</code> — если условие истинно, ветвь <code>else</code> — если ложно.</p>
+          <div class="flow">
+            <svg viewBox="0 0 360 200"><defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5a6287"/></marker></defs>
+              <polygon points="180,10 280,55 180,100 80,55" fill="#e5ecff" stroke="#2459ff" stroke-width="2.5"/>
+              <text x="180" y="60" text-anchor="middle" font-size="14" fill="#121838">age &gt;= 18 ?</text>
+              <path d="M80 55 H50 V130" fill="none" stroke="#5a6287" stroke-width="2" marker-end="url(#ar2)"/><text x="40" y="48" font-size="12" fill="#16b46a">Да</text>
+              <path d="M280 55 H310 V130" fill="none" stroke="#5a6287" stroke-width="2" marker-end="url(#ar2)"/><text x="296" y="48" font-size="12" fill="#ef4a5b">Нет</text>
+              <rect x="0" y="132" width="150" height="44" rx="10" fill="#dcf7e9" stroke="#16b46a" stroke-width="2"/><text x="75" y="159" text-anchor="middle" font-size="12.5" fill="#121838">«Доступ разрешен»</text>
+              <rect x="210" y="132" width="150" height="44" rx="10" fill="#ffeef0" stroke="#ef4a5b" stroke-width="2"/><text x="285" y="159" text-anchor="middle" font-size="12.5" fill="#121838">«Доступ запрещен»</text>
+            </svg>
+          </div>
+          <ul>
+            <li>После <code>else</code> условие не пишут, только <code>else:</code></li>
+            <li><code>else</code> стоит на одном уровне отступа с <code>if</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tpanel" data-p="2">
+        <div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>traffic.py</span><button class="run" data-run="2">▶ Запустить</button></div>
+            <pre class="code" data-dyn="2"></pre>
+            <div class="trybox">Попробуй: traffic_light = <select data-in="2"><option value="red">"red"</option><option value="yellow">"yellow"</option><option value="green">"green"</option></select></div>
+            <div class="console" data-out="2"><span class="p">&gt;&gt;&gt; нажмите «Запустить»</span></div>
+          </div>
+        </div>
+        <div class="card explain-card">
+          <h3>Конструкция <code>if-elif-else</code> — выбор из нескольких</h3>
+          <p><code>elif</code> — сокращение от «else if» («иначе если»). Python проверяет условия <b>сверху вниз</b> и выполняет <b>только первую</b> ветвь с истинным условием. Если ни одно условие не истинно, выполняется <code>else</code>.</p>
+          <div class="flow">
+            <svg viewBox="0 0 360 210"><defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5a6287"/></marker></defs>
+              <polygon points="70,10 135,40 70,70 5,40" fill="#e5ecff" stroke="#2459ff" stroke-width="2"/><text x="70" y="44" text-anchor="middle" font-size="11.5">green?</text>
+              <polygon points="210,10 275,40 210,70 145,40" fill="#e5ecff" stroke="#2459ff" stroke-width="2"/><text x="210" y="44" text-anchor="middle" font-size="11.5">yellow?</text>
+              <line x1="135" y1="40" x2="145" y2="40" stroke="#5a6287" stroke-width="2" marker-end="url(#ar3)"/><text x="132" y="30" font-size="10" fill="#ef4a5b">Нет</text>
+              <line x1="275" y1="40" x2="300" y2="40" stroke="#5a6287" stroke-width="2"/><path d="M300 40 V140" stroke="#5a6287" stroke-width="2" fill="none" marker-end="url(#ar3)"/><text x="278" y="30" font-size="10" fill="#ef4a5b">Нет</text>
+              <line x1="70" y1="70" x2="70" y2="140" stroke="#5a6287" stroke-width="2" marker-end="url(#ar3)"/><text x="76" y="100" font-size="10" fill="#16b46a">Да</text>
+              <line x1="210" y1="70" x2="210" y2="140" stroke="#5a6287" stroke-width="2" marker-end="url(#ar3)"/><text x="216" y="100" font-size="10" fill="#16b46a">Да</text>
+              <rect x="10" y="142" width="120" height="44" rx="10" fill="#dcf7e9" stroke="#16b46a" stroke-width="2"/><text x="70" y="169" text-anchor="middle" font-size="12">Можно ехать</text>
+              <rect x="150" y="142" width="120" height="44" rx="10" fill="#fff4cc" stroke="#f5a300" stroke-width="2"/><text x="210" y="169" text-anchor="middle" font-size="12">Приготовьтесь</text>
+              <rect x="278" y="142" width="78" height="44" rx="10" fill="#ffeef0" stroke="#ef4a5b" stroke-width="2"/><text x="317" y="169" text-anchor="middle" font-size="12">Стоп</text>
+            </svg>
+          </div>
+          <ul>
+            <li>Веток <code>elif</code> может быть сколько угодно</li>
+            <li>Для сравнения используют <code>==</code> (два знака!), а <code>=</code> — это присваивание</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tpanel" data-p="3">
+        <div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>ticket.py</span><button class="run" data-run="3">▶ Запустить</button></div>
+            <pre class="code" data-dyn="3"></pre>
+            <div class="trybox">Попробуй: age = <input type="number" data-in="3" value="15"> has_ticket = <select data-in2="3"><option value="True">True</option><option value="False">False</option></select></div>
+            <div class="console" data-out="3"><span class="p">&gt;&gt;&gt; нажмите «Запустить»</span></div>
+          </div>
+          <div class="opdesc">
+            <div style="background:var(--blue)"><b>and</b>«И»: оба условия должны быть истинными</div>
+            <div style="background:var(--violet)"><b>or</b>«ИЛИ»: хотя бы одно условие должно быть истинным</div>
+            <div style="background:var(--orange)"><b>not</b>«НЕ»: логическое отрицание (True ↔ False)</div>
+          </div>
+        </div>
+        <div class="card explain-card">
+          <h3>Интерактивная таблица истинности</h3>
+          <p>Переключайте значения <code>A</code> и <code>B</code> и следите, как меняется результат каждой операции.</p>
+          <div class="truth">
+            <div class="tog">A <button class="switch on" id="swA" aria-label="A">True</button></div>
+            <div class="tog">B <button class="switch" id="swB" aria-label="B">False</button></div>
+          </div>
+          <div class="ops">
+            <div class="op" id="opAnd"><code>A and B</code><div class="r"></div></div>
+            <div class="op" id="opOr"><code>A or B</code><div class="r"></div></div>
+            <div class="op" id="opNot"><code>not A</code><div class="r"></div></div>
+          </div>
+          <ul>
+            <li>Составное условие = несколько простых условий, соединённых логической операцией</li>
+            <li>Порядок выполнения: сначала <code>not</code>, потом <code>and</code>, потом <code>or</code>. Скобки меняют порядок</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. MISSIONS ============ -->
+<section class="sec white" id="missions">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 6 · центральная часть</span>
+      <h2>Интерактивные <span class="g">миссии</span></h2>
+      <p>Правила: верный ответ с первой попытки — полные баллы; со второй и следующих — половина. Подсказка стоит −1 балл за миссию. «Показать решение» открывает ответ, но за открытые задания баллы не начисляются.</p>
+    </div>
+
+    <div class="hud" id="hud">
+      <div class="sc">⭐ <span id="hudScore">0</span><small>/ 30 баллов</small></div>
+      <div class="bar"><i id="hudBar"></i></div>
+      <div class="pips">
+        <a class="pip" id="pip-m1" href="#m1"><b>1</b><span>Дверь</span></a>
+        <a class="pip" id="pip-m2" href="#m2"><b>2</b><span>Светофор</span></a>
+        <a class="pip" id="pip-m3" href="#m3"><b>3</b><span>Безопасность</span></a>
+      </div>
+    </div>
+
+    <!-- MISSION 1 -->
+    <article class="mission reveal" id="m1">
+      <div class="stamp">ВЫПОЛНЕНО ✓</div>
+      <div class="mhead" style="background:linear-gradient(120deg,#2459ff,#7a4dff)">
+        <div class="mnum">01</div>
+        <div><h3>«Открой электронную дверь»</h3><div class="meta"><span>if · if-else</span><span>Цель 7.3.1.1</span><span>Базовый уровень</span></div></div>
+        <div class="mscore"><b><span id="ms-m1">0</span>/10</b><small>баллов</small></div>
+      </div>
+      <div class="mbody">
+        <div>
+          <div class="situation"><h4>🏙 Игровая ситуация</h4>В умном городе установлена электронная дверь. Чтобы попасть внутрь, нужен правильный код доступа. Программа двери сломалась: в ней пропало условие проверки пароля.</div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>door.py</span></div><pre class="code" data-static>password = "1234"
+user_password = input("Введите пароль: ")
+if __________________:
+    print("Доступ разрешен")
+else:
+    print("Доступ запрещен")</pre></div>
+          <div class="task"><h4>📝 Задание</h4><p>Допиши условие, которое проверяет, совпадает ли введённый пароль с правильным.</p></div>
+          <div class="mode-tabs" id="m1modes"><button class="on" data-mode="choice">Выбрать вариант</button><button data-mode="input">Вписать код</button></div>
+          <div class="quiz" data-item="m1q" data-correct="b" id="m1choice">
+            <div class="opts">
+              <button class="opt" data-v="a" data-why="Один знак «=» — это присваивание, а не сравнение. Python выдаст ошибку SyntaxError."><span class="k">A</span><code>if user_password = password:</code></button>
+              <button class="opt" data-v="b"><span class="k">B</span><code>if user_password == password:</code></button>
+              <button class="opt" data-v="c" data-why="«!=» означает «не равно». Тогда дверь откроется при НЕВЕРНОМ пароле, а при верном — нет."><span class="k">C</span><code>if user_password != password:</code></button>
+              <button class="opt" data-v="d" data-why="В кавычках "user_password" — это просто текст, а не переменная. Текст "user_password" никогда не будет равен "1234"."><span class="k">D</span><code>if "user_password" == password:</code></button>
+            </div>
+            <div class="fb"></div>
+          </div>
+          <div id="m1inputWrap" style="display:none">
+            <div class="inline-input"><span class="pre">if</span><input id="m1input" autocomplete="off" spellcheck="false" placeholder="допиши условие"><span class="post">:</span><button class="btn btn-p btn-sm" id="m1check" style="margin-left:14px">Проверить</button></div>
+            <div class="fb" id="m1ifb"></div>
+          </div>
+          <div class="explain" id="ex-m1q"><b class="t">Объяснение решения</b>Правильное условие: <code>if user_password == password:</code>. Оператор <code>==</code> сравнивает два значения и возвращает True или False. Если пароли совпадают — True, выполняется ветвь <code>if</code> («Доступ разрешен»). Иначе — False, выполняется ветвь <code>else</code> («Доступ запрещен»). Функция <code>input()</code> возвращает строку, поэтому сравниваем её со строкой <code>"1234"</code>.</div>
+          <div class="bot-tip" id="tip-m1"><svg><use href="#bot"/></svg><div class="bub"><b>Робот Байт · подсказка (−1 балл)</b>Нужно сравнить то, что ввёл пользователь (<code>user_password</code>), с правильным паролем (<code>password</code>). Для сравнения нужен оператор из ДВУХ знаков «равно».</div></div>
+          <div class="mtools">
+            <button class="btn btn-g btn-sm" data-hint="m1">💡 Подсказка</button>
+            <button class="btn btn-g btn-sm" data-reveal="m1">👁 Показать решение</button>
+            <button class="btn btn-g btn-sm" data-reset="m1">↺ Повторить</button>
+          </div>
+        </div>
+        <div>
+          <div class="sim">
+            <div class="lockov" id="doorLock"><div class="l">🔒</div>Симулятор двери откроется, когда программа будет исправлена</div>
+            <h4>🚪 Симулятор: проверь свою программу</h4>
+            <div class="doorwrap">
+              <div class="door" id="door"><div class="room">🏢</div><div class="leaf l"></div><div class="leaf r"></div><div class="led"></div></div>
+              <div class="keypad">
+                <div style="font-weight:700;font-size:14px;color:#b9c3ee">Введите пароль:</div>
+                <input id="doorPass" maxlength="8" inputmode="numeric" placeholder="••••" autocomplete="off">
+                <button class="btn btn-o btn-sm" id="doorRun" style="width:100%">▶ Запустить door.py</button>
+                <div style="font-size:13px;color:#9fb0ff;margin-top:8px">Проверь программу на верном и неверном паролях: так работают тестировщики.</div>
+              </div>
+            </div>
+            <div class="simcon" id="doorCon"><span style="color:#5a6699">&gt;&gt;&gt; ожидание запуска…</span></div>
+          </div>
+          <div class="card" style="margin-top:18px;background:#f7f9ff;box-shadow:none">
+            <h4 style="font-family:var(--fb);font-size:15px;margin-bottom:6px">🔍 Подумай</h4>
+            <p style="font-size:15px">Почему в этой программе подходит именно <code>if-else</code>, а не просто <code>if</code>? <i style="color:var(--muted)">(Потому что при неверном пароле тоже нужно вывести сообщение: в обоих случаях программа должна что-то ответить.)</i></p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- MISSION 2 -->
+    <article class="mission reveal" id="m2">
+      <div class="stamp">ВЫПОЛНЕНО ✓</div>
+      <div class="mhead" style="background:linear-gradient(120deg,#ff7a1a,#f5a300)">
+        <div class="mnum">02</div>
+        <div><h3>«Умный светофор»</h3><div class="meta"><span>if-elif-else</span><span>Цель 7.3.1.1</span><span>Средний уровень</span></div></div>
+        <div class="mscore"><b><span id="ms-m2">0</span>/10</b><small>баллов</small></div>
+      </div>
+      <div class="mbody">
+        <div>
+          <div class="situation" style="border-left-color:var(--orange)"><h4>🏙 Игровая ситуация</h4>На главном перекрёстке города нужно восстановить систему управления светофором. Перед запуском инженер должен точно знать, что выведет программа.</div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>traffic_light.py</span></div><pre class="code" data-static>color = "yellow"
+if color == "green":
+    print("Можно ехать")
+elif color == "yellow":
+    print("Приготовьтесь")
+else:
+    print("Стоп")</pre></div>
+          <div class="task"><h4>📝 Задание 1 · 5 баллов</h4><p>Что выведет программа? Светофор справа покажет выбранный вами вариант.</p></div>
+          <div class="quiz" data-item="m2a" data-correct="b">
+            <div class="opts two">
+              <button class="opt" data-v="a" data-why="Это сообщение выводится, только если color == "green". У нас color = "yellow", поэтому первое условие ложно."><span class="k">A</span>Можно ехать</button>
+              <button class="opt" data-v="b"><span class="k">B</span>Приготовьтесь</button>
+              <button class="opt" data-v="c" data-why="Ветвь else выполняется, только если ВСЕ условия выше ложны. Но условие color == "yellow" истинно."><span class="k">C</span>Стоп</button>
+              <button class="opt" data-v="d" data-why="В конструкции if-elif-else всегда выполняется ровно одна ветвь: при любом значении color программа что-то выведет."><span class="k">D</span>Ничего не выведет</button>
+            </div>
+            <div class="fb"></div>
+            <div class="explain" id="ex-m2a"><b class="t">Объяснение</b>Значение <code>color</code> равно <code>"yellow"</code>. Первое условие <code>color == "green"</code> ложно, поэтому Python переходит к <code>elif</code>. Условие <code>color == "yellow"</code> истинно, выводится «Приготовьтесь».</div>
+          </div>
+          <div class="task"><h4>📝 Задание 2 · 5 баллов</h4><p>Почему срабатывает именно эта ветвь?</p></div>
+          <div class="quiz" data-item="m2b" data-correct="b">
+            <div class="opts">
+              <button class="opt" data-v="a" data-why="Нет: в if-elif-else выполняется только одна ветвь — первая, условие которой истинно."><span class="k">A</span>Python выполняет все ветви по очереди сверху вниз</button>
+              <button class="opt" data-v="b"><span class="k">B</span>Первое условие ложно, поэтому проверяется elif. Его условие истинно — выполняется эта ветвь, а else пропускается</button>
+              <button class="opt" data-v="c" data-why="Неверно: else выполняется только тогда, когда ни одно из условий if и elif не оказалось истинным."><span class="k">C</span>Срабатывает else, потому что "yellow" не равно "green"</button>
+              <button class="opt" data-v="d" data-why="Компьютер не выбирает случайно: он строго проверяет условия по порядку. Это и есть алгоритм."><span class="k">D</span>Python выбирает ветвь случайным образом</button>
+            </div>
+            <div class="fb"></div>
+            <div class="explain" id="ex-m2b"><b class="t">Объяснение</b>Условия проверяются <b>строго по порядку</b>. Как только найдено истинное условие, выполняется его ветвь, а остальные проверки пропускаются. Поэтому порядок записи условий в <code>if-elif-else</code> важен.</div>
+          </div>
+          <div class="bot-tip" id="tip-m2"><svg><use href="#bot"/></svg><div class="bub"><b>Робот Байт · подсказка (−1 балл)</b>Python проверяет условия сверху вниз. Подставь "yellow" в каждое условие: где впервые получится True, та ветвь и выполнится.</div></div>
+          <div class="mtools">
+            <button class="btn btn-g btn-sm" data-hint="m2">💡 Подсказка</button>
+            <button class="btn btn-g btn-sm" data-reveal="m2">👁 Показать решение</button>
+            <button class="btn btn-g btn-sm" data-reset="m2">↺ Повторить</button>
+          </div>
+        </div>
+        <div>
+          <div class="sim" style="background:linear-gradient(160deg,#1b1546,#3b1f8c)">
+            <h4>🚦 Лаборатория светофора · исследование</h4>
+            <div class="tlight-wrap">
+              <div class="tlight" id="tlight"><div class="lamp red"></div><div class="lamp yellow"></div><div class="lamp green"></div></div>
+              <div class="lab">
+                <div style="font-weight:700;font-size:14px;color:#c9c0ff;margin-bottom:8px">Выбери значение <code style="background:rgba(255,255,255,.12);color:#ffd96b">color</code> и запусти пошагово:</div>
+                <div class="cbtns" id="cbtns">
+                  <button class="cbtn" data-c="green">"green"</button>
+                  <button class="cbtn on" data-c="yellow">"yellow"</button>
+                  <button class="cbtn" data-c="red">"red"</button>
+                  <button class="cbtn" data-c="blue" data-tip="А что будет с цветом, которого нет в условиях?">"blue"</button>
+                </div>
+                <button class="btn btn-o btn-sm" id="labRun">▶ Выполнить по шагам</button>
+              </div>
+            </div>
+            <div class="codebox" style="margin-top:70px"><pre class="code" id="labCode"></pre></div>
+            <div class="trace" id="labTrace" style="margin-top:12px"><span style="color:#5a6699">Здесь появится пошаговое выполнение программы…</span></div>
+          </div>
+          <div class="card" style="margin-top:18px;background:#f7f9ff;box-shadow:none">
+            <h4 style="font-family:var(--fb);font-size:15px;margin-bottom:6px">🔬 Исследовательский вопрос</h4>
+            <p style="font-size:15px">Запусти программу с <code>"blue"</code>. Почему светофор показывает «Стоп»? Хорошо ли это для безопасности? <i style="color:var(--muted)">(else срабатывает при любом неизвестном значении. Для светофора это безопасный вариант: при сбое — «Стоп».)</i></p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- MISSION 3 -->
+    <article class="mission reveal" id="m3">
+      <div class="stamp">ВЫПОЛНЕНО ✓</div>
+      <div class="mhead" style="background:linear-gradient(120deg,#0d9c94,#12c6bd 50%,#2459ff)">
+        <div class="mnum">03</div>
+        <div><h3>«Система безопасности города»</h3><div class="meta"><span>and · or · not</span><span>Цель 7.3.1.2</span><span>Повышенный уровень</span></div></div>
+        <div class="mscore"><b><span id="ms-m3">0</span>/10</b><small>баллов</small></div>
+      </div>
+      <div class="mbody">
+        <div>
+          <div class="situation" style="border-left-color:var(--teal)"><h4>🏙 Игровая ситуация</h4>Умная система безопасности проверяет доступ в специальную зону. Правило: пройти можно, если пользователю <b>исполнилось 14 лет и</b> у него <b>есть пропуск</b>.</div>
+          <div class="codebox"><div class="codebar"><i></i><i></i><i></i><span>security.py</span></div><pre class="code" data-static>age = 15
+has_pass = True
+if age >= 14 and has_pass:
+    print("Доступ разрешен")
+else:
+    print("Доступ запрещен")</pre></div>
+          <div class="task"><h4>📝 Задание 1 · 4 балла · Измени значения и предскажи результат</h4></div>
+          <div class="scen">
+            <div class="quiz" data-item="m3s1" data-correct="b">
+              <b>Сценарий 1</b><div class="vars"><code>age = 13</code><code>has_pass = True</code></div>
+              <div class="opts two">
+                <button class="opt" data-v="a" data-why="Проверь первую часть: 13 >= 14 → False. Для and нужно, чтобы ОБЕ части были True."><span class="k">A</span>Доступ разрешен</button>
+                <button class="opt" data-v="b"><span class="k">B</span>Доступ запрещен</button>
+              </div>
+              <div class="fb"></div>
+              <div class="explain" id="ex-m3s1"><b class="t">Объяснение</b><code>13 &gt;= 14</code> → False; <code>has_pass</code> → True; <code>False and True</code> → <b>False</b>. Выполняется else: «Доступ запрещен». Пропуск есть, но возраст не подходит.</div>
+            </div>
+            <div class="quiz" data-item="m3s2" data-correct="a">
+              <b>Сценарий 2 · граничное значение</b><div class="vars"><code>age = 14</code><code>has_pass = True</code></div>
+              <div class="opts two">
+                <button class="opt" data-v="a"><span class="k">A</span>Доступ разрешен</button>
+                <button class="opt" data-v="b" data-why="Знак >= означает «больше ИЛИ равно». 14 >= 14 — это True."><span class="k">B</span>Доступ запрещен</button>
+              </div>
+              <div class="fb"></div>
+              <div class="explain" id="ex-m3s2"><b class="t">Объяснение</b><code>14 &gt;= 14</code> → True (знак «больше или равно»); <code>has_pass</code> → True; <code>True and True</code> → <b>True</b>. «Доступ разрешен». Граничные значения всегда стоит проверять отдельно!</div>
+            </div>
+          </div>
+          <div class="task" style="margin-top:24px"><h4>📝 Задание 2 · 6 баллов · Мини-вопросы на and, or, not</h4></div>
+          <div class="mini quiz" data-item="m3q1" data-correct="a">
+            <b>Вопрос 1 · or</b> Что выведет программа?
+            <div class="codebox"><pre class="code" data-static>x = 5
+print(x > 3 or x > 10)</pre></div>
+            <div class="opts two"><button class="opt" data-v="a"><span class="k">A</span><code>True</code></button><button class="opt" data-v="b" data-why="Для or достаточно, чтобы истинным было ХОТЯ БЫ ОДНО условие. x > 3 → True."><span class="k">B</span><code>False</code></button></div>
+            <div class="fb"></div>
+            <div class="explain" id="ex-m3q1"><b class="t">Объяснение</b><code>5 &gt; 3</code> → True, <code>5 &gt; 10</code> → False. <code>True or False</code> → <b>True</b>: для or достаточно одного истинного условия.</div>
+          </div>
+          <div class="mini quiz" data-item="m3q2" data-correct="a">
+            <b>Вопрос 2 · not</b> Что выведет программа?
+            <div class="codebox"><pre class="code" data-static>is_raining = False
+if not is_raining:
+    print("Гуляем")
+else:
+    print("Берём зонт")</pre></div>
+            <div class="opts two"><button class="opt" data-v="a"><span class="k">A</span>Гуляем</button><button class="opt" data-v="b" data-why="not меняет значение на противоположное: not False → True. Значит, выполняется ветвь if."><span class="k">B</span>Берём зонт</button></div>
+            <div class="fb"></div>
+            <div class="explain" id="ex-m3q2"><b class="t">Объяснение</b><code>is_raining</code> = False, <code>not False</code> → <b>True</b>, поэтому выполняется ветвь <code>if</code>: «Гуляем». Дождя нет — можно гулять.</div>
+          </div>
+          <div class="mini quiz" data-item="m3q3" data-correct="a">
+            <b>Вопрос 3 · комбинация</b> Что выведет программа?
+            <div class="codebox"><pre class="code" data-static>a = 5
+b = 2
+print(not (a > 3 and b > 4))</pre></div>
+            <div class="opts two"><button class="opt" data-v="a"><span class="k">A</span><code>True</code></button><button class="opt" data-v="b" data-why="Сначала вычисли скобки: (True and False) → False. Затем not False → ?"><span class="k">B</span><code>False</code></button></div>
+            <div class="fb"></div>
+            <div class="explain" id="ex-m3q3"><b class="t">Объяснение</b>Сначала скобки: <code>5 &gt; 3</code> → True, <code>2 &gt; 4</code> → False, <code>True and False</code> → False. Затем <code>not False</code> → <b>True</b>.</div>
+          </div>
+          <div class="bot-tip" id="tip-m3"><svg><use href="#bot"/></svg><div class="bub"><b>Робот Байт · подсказка (−1 балл)</b><code>and</code> даёт True, только если ОБЕ части True. <code>or</code> — если хотя бы одна. <code>not</code> переворачивает значение. И помни: 14 &gt;= 14 — это True!</div></div>
+          <div class="mtools">
+            <button class="btn btn-g btn-sm" data-hint="m3">💡 Подсказка</button>
+            <button class="btn btn-g btn-sm" data-reveal="m3">👁 Показать решение</button>
+            <button class="btn btn-g btn-sm" data-reset="m3">↺ Повторить</button>
+          </div>
+        </div>
+        <div>
+          <div class="sim" style="background:linear-gradient(160deg,#06323a,#0b5f6b 50%,#1a2a9c)">
+            <h4>🛡 Пульт системы безопасности · песочница</h4>
+            <div class="ctrls">
+              <div class="ctrl"><label>age</label><input type="range" id="sAge" min="8" max="18" value="15"><span class="v" id="sAgeV">15</span></div>
+              <div class="ctrl"><label>has_pass</label><div class="seg" id="sPass"><button class="on" data-v="True">True</button><button data-v="False">False</button></div></div>
+              <div class="ctrl"><label>операция</label><div class="seg" id="sOp"><button class="on" data-v="and">and</button><button data-v="or">or</button></div></div>
+              <div class="ctrl"><label>not</label><div class="seg" id="sNot"><button class="on" data-v="0">без not</button><button data-v="1">not has_pass</button></div></div>
+            </div>
+            <div class="codebox"><pre class="code" id="secCode"></pre></div>
+            <button class="btn btn-o btn-sm" id="secRun" style="margin-top:12px">▶ Запустить security.py</button>
+            <div class="evals" id="secEv"></div>
+            <div class="gate closed" id="gate"><div class="post"></div><div class="bar-g"></div><div class="gtext" id="gText">Ожидание запуска…</div></div>
+          </div>
+          <div class="card" style="margin-top:18px;background:#f7f9ff;box-shadow:none">
+            <h4 style="font-family:var(--fb);font-size:15px;margin-bottom:6px">🔬 Исследуй</h4>
+            <ul style="padding-left:18px;font-size:15px">
+              <li>Замени <code>and</code> на <code>or</code> при <code>age = 10</code> и <code>has_pass = True</code>. Почему такая система опасна?</li>
+              <li>Включи <code>not has_pass</code>. Кого теперь пропускает система? Какое реальное правило так можно описать?</li>
+              <li>Найди наименьший возраст, при котором доступ разрешён.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RESULTS -->
+    <div class="final-res reveal" id="missionResults">
+      <h3>📊 Общий результат по трём миссиям</h3>
+      <p style="opacity:.85">Результаты обновляются автоматически по мере выполнения заданий.</p>
+      <div class="rrows">
+        <div class="rrow"><span>🚪 Миссия 1 · Дверь</span><div class="rb"><i id="rb-m1" style="background:linear-gradient(90deg,#5b7bff,#a58bff)"></i></div><span class="rv" id="rv-m1">0/10</span></div>
+        <div class="rrow"><span>🚦 Миссия 2 · Светофор</span><div class="rb"><i id="rb-m2" style="background:linear-gradient(90deg,#ff7a1a,#ffc928)"></i></div><span class="rv" id="rv-m2">0/10</span></div>
+        <div class="rrow"><span>🛡 Миссия 3 · Безопасность</span><div class="rb"><i id="rb-m3" style="background:linear-gradient(90deg,#12c6bd,#7dffb0)"></i></div><span class="rv" id="rv-m3">0/10</span></div>
+      </div>
+      <div class="total">
+        <div class="big"><span id="totScore">0</span><small>/30</small></div>
+        <div class="lv" id="totLevel">Миссии ещё не пройдены<small>Начните с Миссии 1</small></div>
+        <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-o btn-sm" id="resetAll">↺ Перезапустить все миссии</button>
+        </div>
+      </div>
+      <div class="badges">
+        <div class="badge" id="bd-m1"><div class="bi">🔑</div><div><b>Взломщик багов</b><small>Миссия 1 выполнена</small></div></div>
+        <div class="badge" id="bd-m2"><div class="bi">🚦</div><div><b>Мастер светофора</b><small>Миссия 2 выполнена</small></div></div>
+        <div class="badge" id="bd-m3"><div class="bi">🛡</div><div><b>Страж города</b><small>Миссия 3 выполнена</small></div></div>
+        <div class="badge" id="bd-pro"><div class="bi">🏆</div><div><b>Главный разработчик</b><small>27+ баллов из 30</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. RESOURCES ============ -->
+<section class="sec alt" id="resources">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 7</span>
+      <h2>Цифровые <span class="g">образовательные ресурсы</span></h2>
+      <p>Инструменты, которые учитель использует на уроке. Ссылки ведут на официальные сайты платформ.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card lift resc reveal d1" style="--c:#2459ff">
+        <div class="top"><div class="ico i-b">🐍</div><h3>Python / IDLE</h3></div>
+        <div class="kv"><b>Назначение</b>Написание, запуск и проверка программ с условными конструкциями.</div>
+        <div class="kv"><b>Этап урока</b>Объяснение нового материала, командная практическая работа.</div>
+        <div class="kv"><b>Польза для ученика</b>Работает в настоящей среде программирования, видит результат и сообщения об ошибках сразу.</div>
+        <a class="ln" href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org ↗</a>
+      </div>
+      <div class="card lift resc reveal d2" style="--c:#ff7a1a">
+        <div class="top"><div class="ico i-o">💻</div><h3>Replit</h3></div>
+        <div class="kv"><b>Назначение</b>Онлайн-среда для написания и выполнения кода Python.</div>
+        <div class="kv"><b>Этап урока</b>Командная практическая работа, домашнее задание.</div>
+        <div class="kv"><b>Польза для ученика</b>Не нужна установка: можно программировать с любого устройства и поделиться ссылкой на решение для взаимопроверки.</div>
+        <a class="ln" href="https://replit.com" target="_blank" rel="noopener">replit.com ↗</a>
+      </div>
+      <div class="card lift resc reveal d3" style="--c:#7a4dff">
+        <div class="top"><div class="ico i-v">🎡</div><h3>Wordwall</h3></div>
+        <div class="kv"><b>Назначение</b>Интерактивное повторение понятий и проверка понимания условных конструкций.</div>
+        <div class="kv"><b>Этап урока</b>Актуализация знаний (блиц «Сравни и реши»).</div>
+        <div class="kv"><b>Польза для ученика</b>В игровой форме вспоминает операторы сравнения и типы данных перед новой темой.</div>
+        <a class="ln" href="https://wordwall.net" target="_blank" rel="noopener">wordwall.net ↗</a>
+      </div>
+      <div class="card lift resc reveal d1" style="--c:#12c6bd">
+        <div class="top"><div class="ico i-t">🧩</div><h3>LearningApps</h3></div>
+        <div class="kv"><b>Назначение</b>Упражнения на сопоставление условий, результатов и логических операций.</div>
+        <div class="kv"><b>Этап урока</b>Индивидуальное закрепление (уровни A и B).</div>
+        <div class="kv"><b>Польза для ученика</b>Работает в своём темпе и получает мгновенную проверку каждого сопоставления.</div>
+        <a class="ln" href="https://learningapps.org" target="_blank" rel="noopener">learningapps.org ↗</a>
+      </div>
+      <div class="card lift resc reveal d2" style="--c:#ffc928">
+        <div class="top"><div class="ico i-y">🏁</div><h3>Kahoot</h3></div>
+        <div class="kv"><b>Назначение</b>Игровая проверка знаний в конце объяснения или урока.</div>
+        <div class="kv"><b>Этап урока</b>Индивидуальное закрепление (финальная викторина).</div>
+        <div class="kv"><b>Польза для ученика</b>Соревнование мотивирует, а учитель сразу видит статистику ответов и типичные ошибки.</div>
+        <a class="ln" href="https://kahoot.com" target="_blank" rel="noopener">kahoot.com ↗</a>
+      </div>
+      <div class="card lift resc reveal d3" style="--c:#16b46a">
+        <div class="top"><div class="ico i-g">🖥</div><h3>Интерактивная доска и проектор</h3></div>
+        <div class="kv"><b>Назначение</b>Демонстрация кода, визуализация алгоритмов и совместное обсуждение решений.</div>
+        <div class="kv"><b>Этап урока</b>Все этапы: сюжет, объяснение, разбор решений, рефлексия.</div>
+        <div class="kv"><b>Польза для ученика</b>Видит блок-схемы и пошаговое выполнение программы, может выйти к доске и показать решение команды.</div>
+        <span class="ln" style="color:var(--muted)">Оборудование кабинета</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. ASSESSMENT ============ -->
+<section class="sec white" id="assessment">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 8</span>
+      <h2>Оценивание <span class="g">учащихся</span></h2>
+      <p>Формативное оценивание: его задача — показать ученику, что уже получилось и что нужно улучшить.</p>
+      <div class="legend"><span class="src own">✏️ Методическая система оценивания, разработанная для этого урока. Это не официальная шкала из приказа №399.</span></div>
+    </div>
+    <div class="grid g3 ways">
+      <div class="card lift reveal d1" style="border-top-color:var(--blue)">
+        <div class="ico i-b">👩‍🏫</div><h3>1. Оценивание учителем</h3>
+        <p style="font-size:15px">Учитель наблюдает за работой учеников, проверяет правильность кода, задаёт уточняющие вопросы и оценивает достижение целей обучения.</p>
+        <ul><li>лист наблюдения по командам;</li><li>вопросы «Почему здесь elif, а не if?»;</li><li>устная обратная связь по ходу работы.</li></ul>
+      </div>
+      <div class="card lift reveal d2" style="border-top-color:var(--orange)">
+        <div class="ico i-o">🔄</div><h3>2. Взаимооценивание</h3>
+        <p style="font-size:15px">Команды обмениваются заданиями по кругу и проверяют решения друг друга по критериям рубрики.</p>
+        <div class="peer">
+          <div style="background:#fff4cc">⭐ Звезда 1<br><small>что сделано хорошо</small></div>
+          <div style="background:#fff4cc">⭐ Звезда 2<br><small>ещё одна удача</small></div>
+          <div style="background:#e3fbf8">💬 Пожелание<br><small>что улучшить</small></div>
+        </div>
+      </div>
+      <div class="card lift reveal d3" style="border-top-color:var(--teal)">
+        <div class="ico i-t">🪞</div><h3>3. Самооценивание</h3>
+        <p style="font-size:15px">Ученики сами отмечают, насколько хорошо поняли материал:</p>
+        <div class="selfcheck" id="selfcheck">
+          <label><input type="checkbox"> Я могу записать if-else</label>
+          <label><input type="checkbox"> Я понимаю, когда нужен elif</label>
+          <label><input type="checkbox"> Я различаю and и or</label>
+          <label><input type="checkbox"> Я могу найти ошибку в условии</label>
+        </div>
+        <p id="selfRes" style="margin-top:10px;font-weight:700;color:var(--muted);font-size:14.5px">Отмечено: 0 из 4</p>
+      </div>
+    </div>
+
+    <div class="rubric reveal">
+      <h3 style="font-size:22px;margin-bottom:6px">📋 Интерактивная рубрика оценивания</h3>
+      <p style="color:var(--muted);margin-bottom:16px">Нажимайте на баллы по каждому критерию. Итог и уровень рассчитаются автоматически.</p>
+      <table>
+        <thead><tr><th>Критерий</th><th>Дескриптор</th><th>Цель</th><th>Баллы</th></tr></thead>
+        <tbody id="rubricBody"></tbody>
+      </table>
+    </div>
+    <div class="rsum reveal">
+      <div class="big"><span id="rubTotal">0</span><small>/10</small></div>
+      <div style="flex:1;min-width:200px"><b id="rubLevel" style="font-size:18px">Отметьте баллы по критериям</b><div style="color:var(--muted);font-size:14.5px">Максимум — 10 баллов</div></div>
+      <button class="btn btn-g btn-sm" id="rubReset">↺ Очистить</button>
+    </div>
+    <div class="levels reveal">
+      <div data-l="0" style="background:#dcf7e9"><b>9–10</b>отличный результат</div>
+      <div data-l="1" style="background:#e5ecff"><b>7–8</b>хороший результат</div>
+      <div data-l="2" style="background:#fff4cc"><b>5–6</b>базовый уровень</div>
+      <div data-l="3" style="background:#ffeef0"><b>0–4</b>требуется дополнительная практика</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. REFLECTION ============ -->
+<section class="sec alt" id="reflection">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 9</span>
+      <h2>Рефлексия <span class="g">«Светофор знаний»</span></h2>
+      <p>Выберите сигнал, который лучше всего описывает ваше понимание темы.</p>
+    </div>
+    <div class="rlight reveal">
+      <button class="rbtn rb-g" data-r="g"><div class="c">🟢</div><span>«Я всё понял и могу самостоятельно создавать программы с условиями».</span></button>
+      <button class="rbtn rb-y" data-r="y"><div class="c">🟡</div><span>«Я понимаю тему, но иногда допускаю ошибки».</span></button>
+      <button class="rbtn rb-r" data-r="r"><div class="c">🔴</div><span>«Мне необходимо ещё раз разобрать материал».</span></button>
+    </div>
+    <div class="rmsg" id="rmsg"><div class="e" id="rmsgE"></div><div><h3 id="rmsgT" style="font-size:20px;margin-bottom:6px"></h3><p id="rmsgP"></p></div></div>
+
+    <div class="rq">
+      <div class="card reveal d1"><h4>💡 Что нового вы сегодня узнали?</h4><textarea placeholder="Сегодня я узнал(а)…"></textarea></div>
+      <div class="card reveal d2"><h4>🎮 Какое задание оказалось самым интересным?</h4><textarea placeholder="Мне больше всего понравилось…"></textarea>
+        <div class="chips"><button data-fill="Миссия 1 «Открой электронную дверь»">🚪 Дверь</button><button data-fill="Миссия 2 «Умный светофор»">🚦 Светофор</button><button data-fill="Миссия 3 «Система безопасности города»">🛡 Безопасность</button></div></div>
+      <div class="card reveal d1"><h4>🌍 Где в реальной жизни используются условные конструкции?</h4><textarea placeholder="Например…" id="rqLife"></textarea>
+        <div class="chips" id="lifeChips"><button>банкомат и PIN-код</button><button>турникет в школе</button><button>автоматический свет</button><button>навигатор</button><button>игры</button><button>умная колонка</button></div></div>
+      <div class="card reveal d2"><h4>🧗 Что было самым сложным?</h4><textarea placeholder="Сложнее всего было…"></textarea>
+        <div class="chips"><button data-fill="Разница между = и ==">= и ==</button><button data-fill="Когда использовать elif">elif</button><button data-fill="Различать and и or">and / or</button><button data-fill="Отступы и двоеточие">отступы</button></div></div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap" class="reveal">
+      <button class="btn btn-p" id="rSubmit">📨 Отправить рефлексию</button>
+      <span id="rSubRes" style="font-weight:700;color:var(--ok)"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. HOMEWORK ============ -->
+<section class="sec white" id="homework">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Раздел 10</span>
+      <h2>Домашнее <span class="g">задание</span></h2>
+      <p>Выберите уровень сложности по силам. Тот, кто справился с базовым уровнем, может попробовать следующий.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card lift hw reveal d1" style="border-top-color:var(--ok)">
+        <div class="lvl"><b style="color:var(--ok)">Базовый</b><span class="stars">⭐</span></div>
+        <h3 style="font-size:19px">«Датчик температуры»: положительное или отрицательное?</h3>
+        <p style="font-size:15px">Создать программу, которая проверяет, является ли число положительным или отрицательным.</p>
+        <ul class="reqs"><li>ввод числа через <code>int(input())</code>;</li><li>конструкция <code>if-else</code>;</li><li>понятный вывод результата.</li></ul>
+        <div class="ex"><span class="p">Ввод:</span> -7
+<span class="p">Вывод:</span> Число отрицательное</div>
+        <p style="font-size:13.5px;color:var(--muted)">Бонус: подумай, что выведет твоя программа для числа 0, и добавь для него отдельную ветвь.</p>
+        <button class="btn btn-g btn-sm" data-starter="1">🧩 Показать шаблон</button>
+        <div class="codebox starter" id="st1"><pre class="code" data-static>number = int(input("Введите число: "))
+if number > 0:
+    print("Число положительное")
+else:
+    # допиши вывод для другого случая
+    ...</pre></div>
+      </div>
+      <div class="card lift hw reveal d2" style="border-top-color:var(--orange)">
+        <div class="lvl"><b style="color:var(--orange)">Средний</b><span class="stars">⭐⭐</span></div>
+        <h3 style="font-size:19px">«Электронный дневник»: оценка по баллам</h3>
+        <p style="font-size:15px">Создать программу, которая определяет оценку ученика по количеству набранных баллов, используя <code>if-elif-else</code>.</p>
+        <ul class="reqs"><li>условная шкала для задания: 85–100 → «5», 65–84 → «4», 40–64 → «3», меньше 40 → «2»;</li><li>не меньше трёх ветвей <code>elif</code>;</li><li>проверить программу на граничных значениях (85, 65, 40).</li></ul>
+        <div class="ex"><span class="p">Ввод:</span> 72
+<span class="p">Вывод:</span> Оценка: 4</div>
+        <button class="btn btn-g btn-sm" data-starter="2">🧩 Показать шаблон</button>
+        <div class="codebox starter" id="st2"><pre class="code" data-static>score = int(input("Баллы: "))
+if score >= 85:
+    print("Оценка: 5")
+elif score >= 65:
+    print("Оценка: 4")
+# продолжи цепочку elif ... else</pre></div>
+      </div>
+      <div class="card lift hw reveal d3" style="border-top-color:var(--violet)">
+        <div class="lvl"><b style="color:var(--violet)">Повышенный</b><span class="stars">⭐⭐⭐</span></div>
+        <h3 style="font-size:19px">«Умный дом»: своя система принятия решений</h3>
+        <p style="font-size:15px">Разработать собственную простую систему принятия решений для умного дома, используя <code>if</code>, <code>if-else</code> и логические операции <code>and</code>, <code>or</code> или <code>not</code>.</p>
+        <ul class="reqs"><li>минимум 3 правила (свет, отопление, сигнализация…);</li><li>хотя бы одно составное условие;</li><li>комментарий к каждому правилу: «если…, то…»;</li><li>связь с целью 7.3.3.1: система работает по правилам.</li></ul>
+        <div class="ex"><span class="p">Пример правила:</span>
+if is_dark and motion: включить свет</div>
+        <button class="btn btn-g btn-sm" data-starter="3">🧩 Показать шаблон</button>
+        <div class="codebox starter" id="st3"><pre class="code" data-static>temperature = 17
+is_dark = True
+motion = True
+# Правило 1: свет
+if is_dark and motion:
+    print("Свет включен")
+# Правило 2: отопление ... придумай сам</pre></div>
+      </div>
+    </div>
+    <div class="card reveal" style="margin-top:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:#f7f9ff">
+      <div class="ico i-y">📤</div>
+      <div style="flex:1;min-width:240px"><b>Как сдать работу:</b> сохранить программу в Replit и прислать ссылку учителю (или принести файл <code>.py</code>). Критерии: программа запускается, условия записаны верно, проверены разные входные данные.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RATIONALE ============ -->
+<section class="sec alt" id="rationale">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">Заключение</span>
+      <h2>Методическое <span class="g">обоснование</span></h2>
+      <p>Почему урок построен именно так.</p>
+      <div class="legend"><span class="src own">✏️ Авторская методическая позиция</span></div>
+    </div>
+    <div class="rat">
+      <div class="card reveal d1"><div class="ico i-v">🧒</div><h3>Почему игровая форма подходит семиклассникам</h3>
+        <p>В 12–13 лет у подростков на первый план выходит общение со сверстниками, стремление к самостоятельности и признанию. Игровой сюжет «Миссия: спасти умный город» отвечает на это: ученики выступают командами разработчиков, получают роли, баллы и достижения.</p>
+        <p>Игровая рамка снижает тревогу при ошибке: неверный ответ — это «баг», который можно найти и исправить. Это естественно для программирования и поддерживает учебную мотивацию.</p></div>
+      <div class="card reveal d2"><div class="ico i-b">🎯</div><h3>Как урок ведёт к целям 7.3.1.1 и 7.3.1.2</h3>
+        <p>Задания выстроены по возрастанию сложности. Миссия 1 — простое ветвление <code>if-else</code>. Миссия 2 — множественный выбор <code>if-elif-else</code>. Вместе они покрывают цель 7.3.1.1: ученик выбирает конструкцию под задачу.</p>
+        <p>Миссия 3 и мини-вопросы направлены на цель 7.3.1.2: ученики записывают составные условия, вычисляют <code>and</code>, <code>or</code>, <code>not</code> и проверяют граничные значения. Песочница позволяет на опыте увидеть, как замена <code>and</code> на <code>or</code> меняет поведение системы.</p></div>
+      <div class="card reveal d3"><div class="ico i-o">🌍</div><h3>Связь программирования с реальной жизнью</h3>
+        <p>Каждая миссия моделирует систему, которую ученики видят каждый день: кодовый замок, светофор, пропускной турникет. Поэтому условие в программе воспринимается как правило, по которому работает реальное устройство, а не как абстрактная запись.</p>
+        <p>Домашнее задание «Умный дом» переносит этот опыт на самостоятельное проектирование и выводит на дополнительную цель 7.3.3.1: знания можно представить в виде правил, а простая система принимает решения на основе условий и данных.</p></div>
+      <div class="card reveal d4"><div class="ico i-t">🔁</div><h3>Обратная связь и дифференциация</h3>
+        <p>Мгновенная проверка ответов, объяснения после каждого задания, подсказки и пошаговое выполнение кода дают ученику обратную связь в момент ошибки. Так работает формативное оценивание.</p>
+        <p>Три уровня миссий, разноуровневое закрепление и домашнее задание позволяют каждому ученику продвигаться в своём темпе. Взаимо- и самооценивание развивают умение анализировать код и собственный прогресс.</p></div>
+    </div>
+    <div class="mapping reveal">
+      <table>
+        <thead><tr><th>Цель обучения</th><th>Где достигается на уроке</th><th>Как проверяется</th></tr></thead>
+        <tbody>
+          <tr><td><code>7.3.1.1</code> if, if + else, if + elif + else</td><td>Объяснение (вкладки 1–3), Миссия 1, Миссия 2, ДЗ (базовый и средний уровни)</td><td>Выбор/ввод условия, прогноз вывода, объяснение ветви; критерии 1, 2 рубрики</td></tr>
+          <tr><td><code>7.3.1.2</code> and, or, not</td><td>Таблица истинности, Миссия 3, мини-вопросы, песочница, ДЗ (повышенный уровень)</td><td>Сценарии с граничными значениями, мини-вопросы; критерий 3 рубрики</td></tr>
+          <tr><td><code>7.3.3.1</code> (дополнительная)</td><td>Система безопасности как система правил, ДЗ «Умный дом»</td><td>Защита собственной системы правил; критерии 4, 5 рубрики</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINISH ============ -->
+<section class="finish" id="finish">
+  <div class="wrap">
+    <div class="trophy">🏆</div>
+    <h2><span>МИССИЯ ВЫПОЛНЕНА!</span></h2>
+    <p>Умный город снова принимает правильные решения: двери открываются только по верному коду, светофоры работают по правилам, а система безопасности пропускает только тех, у кого есть доступ. Спасибо, команда разработчиков!</p>
+    <div class="fstats">
+      <div><b id="fsScore">0/30</b>баллов за миссии</div>
+      <div><b id="fsMis">0/3</b>миссий выполнено</div>
+      <div><b id="fsBad">0/4</b>достижений</div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-start" href="#missions" style="font-size:16px">🎮 К миссиям</a>
+      <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)" id="finRestart">↺ Пройти заново</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div><b>«Я — учитель информатики!»</b> · Практическое занятие №12 · 7 класс · III четверть</div>
+    <div>Нормативная основа: Приложение 54 к приказу Министра просвещения РК от 16.09.2022 №399. Сценарий, задания, методы и рубрика — авторская методическая разработка.</div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Наверх">↑</button>
+<div class="toast" id="toast"></div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div style="font-size:64px">🏙️🎉</div>
+    <h2>МИССИЯ ВЫПОЛНЕНА!</h2>
+    <p style="color:var(--muted);font-weight:600">Все три системы умного города восстановлены</p>
+    <div class="sc"><span id="ovScore">0</span><small style="font-size:24px;color:var(--muted)">/30</small></div>
+    <p id="ovLevel" style="font-weight:800;font-size:18px"></p>
+    <div class="btns">
+      <button class="btn btn-p" id="ovClose">📊 Смотреть результаты</button>
+      <button class="btn btn-g" id="ovRestart">↺ Пройти заново</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+
+/* ---------- Python highlighter ---------- */
+const KW=new Set(['if','elif','else','and','or','not','True','False']);
+const BI=new Set(['print','input','int']);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function hl(line){
+  const re=/(#.*$)|("[^"]*"|'[^']*')|(_{4,})|([A-Za-z_][A-Za-z0-9_]*)|(\d+)/g;
+  let out='',last=0,m;
+  while((m=re.exec(line))){
+    out+=esc(line.slice(last,m.index));const t=m[0];
+    if(m[1])out+='<span class="t-com">'+esc(t)+'</span>';
+    else if(m[2])out+='<span class="t-str">'+esc(t)+'</span>';
+    else if(m[3])out+='<span class="t-blank">'+t+'</span>';
+    else if(m[4])out+=KW.has(t)?'<span class="t-kw">'+t+'</span>':BI.has(t)?'<span class="t-fn">'+t+'</span>':'<span class="t-var">'+t+'</span>';
+    else out+='<span class="t-num">'+t+'</span>';
+    last=re.lastIndex;
+  }
+  return out+esc(line.slice(last));
+}
+function renderCode(el,text){
+  el.innerHTML=text.split('\n').map((l,i)=>'<span class="ln" data-i="'+i+'"><span class="no">'+(i+1)+'</span><span class="lc">'+(hl(l)||' ')+'</span></span>').join('');
+}
+$$('pre.code[data-static]').forEach(p=>renderCode(p,p.textContent.replace(/^\n/,'').replace(/\s+$/,'')));
+
+/* ---------- UI helpers ---------- */
+const toastEl=$('#toast');let toastT;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('show'),2600);}
+function floatPts(el,txt){
+  const r=el.getBoundingClientRect();const f=document.createElement('div');f.className='floatpts';f.textContent=txt;
+  f.style.left=(r.left+r.width/2-20)+'px';f.style.top=(r.top-10)+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1200);
+}
+
+/* ---------- nav / scroll ---------- */
+const nav=$('#nav'),bar=$('#scrollbar'),toTop=$('#toTop');
+function onScroll(){
+  const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+  bar.style.width=(p*100)+'%';nav.classList.toggle('scrolled',h.scrollTop>10);toTop.classList.toggle('show',h.scrollTop>600);
+}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+$('#burger').addEventListener('click',()=>$('#links').classList.toggle('open'));
+$$('#links a').forEach(a=>a.addEventListener('click',()=>$('#links').classList.remove('open')));
+const secIds=['passport','goals','methods','lesson','missions','resources','assessment','reflection','homework','rationale'];
+const so=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){$$('#links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secIds.forEach(id=>{const s=document.getElementById(id);if(s)so.observe(s);});
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}}),{threshold:.08});
+$$('.reveal').forEach(el=>ro.observe(el));
+$$('.flip').forEach(f=>{f.addEventListener('click',()=>f.classList.toggle('on'));f.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f.classList.toggle('on');}});});
+
+/* ---------- hero windows ---------- */
+(function(){
+  const g=$('#windows');if(!g)return;const B=[[50,200,70,200],[130,140,80,260],[220,230,66,170],[296,170,76,230],[382,215,62,185],[454,180,86,220]];
+  let html='';const cols=['#ffe27a','#7ff7ef','#ffffff','#ffb36b'];
+  B.forEach(([x,y,w,h],bi)=>{for(let yy=y+16;yy<y+h-30;yy+=24){for(let xx=x+10;xx<x+w-14;xx+=18){if(Math.random()<.62){const c=cols[(bi+xx+yy)%4];const d=(Math.random()*3).toFixed(2);html+='<rect class="win" style="animation-delay:-'+d+'s" x="'+xx+'" y="'+yy+'" width="10" height="13" rx="2" fill="'+c+'" opacity=".9"/>';}}}});
+  g.innerHTML=html;
+})();
+
+/* ---------- METHODS ---------- */
+const STAGES=[
+ {n:'Организационный момент',m:2,c:'#5a6287'},{n:'Мотивация и проблемная ситуация',m:5,c:'#7a4dff'},{n:'Актуализация знаний',m:5,c:'#2459ff'},
+ {n:'Объяснение нового материала',m:10,c:'#1435c4'},{n:'Командная практическая работа',m:12,c:'#ff7a1a'},{n:'Индивидуальное закрепление',m:6,c:'#12a8a0'},
+ {n:'Рефлексия',m:3,c:'#16b46a'},{n:'Домашнее задание',m:2,c:'#e2a200'}];
+const METHODS=[
+ {e:'❓',n:'Проблемное обучение',s:[1,3],
+  sut:'Знания не даются в готовом виде. Ученики видят противоречие («умный город перестал правильно принимать решения») и ищут способ его устранить. Так появляется потребность в новом знании — условных конструкциях.',
+  t:['создаёт проблемную ситуацию «сбой умного города»;','задаёт проблемный вопрос: «Как научить компьютер самостоятельно принимать решения?»;','фиксирует гипотезы на доске и подводит к понятиям «условие» и «ветвление».'],
+  u:['анализируют ситуацию и выдвигают гипотезы в форме «если…, то…»;','приводят примеры решений из жизни;','формулируют тему и цель урока.'],
+  r:'Ученики понимают, зачем нужны условные конструкции, и сами формулируют тему урока.'},
+ {e:'🎮',n:'Игровое обучение',s:[0,1,2,4,5],
+  sut:'Учебные действия встроены в игровую рамку: миссии, баллы, достижения, переход на следующий уровень. Игра — средство достижения учебной цели, а не развлечение.',
+  t:['вводит сюжет и правила игры, систему баллов;','объявляет миссии и награждает достижениями;','поддерживает соревновательный, но доброжелательный настрой.'],
+  u:['выполняют миссии, зарабатывают баллы;','получают значки «Взломщик багов», «Мастер светофора», «Страж города»;','следят за прогрессом команды.'],
+  r:'Высокая вовлечённость всего класса и меньше страха ошибиться.'},
+ {e:'🏗',n:'Практико-ориентированное обучение',s:[3,4,7],
+  sut:'Каждая задача моделирует реальную систему: дверь с паролем, светофор, пропускной контроль, умный дом. Программирование связано с повседневной жизнью.',
+  t:['подбирает жизненные задачи;','показывает, где такие алгоритмы работают (банкомат, турникет, светофор);','просит протестировать программу на разных данных.'],
+  u:['пишут и запускают программы;','тестируют их на верных и неверных данных;','переносят логику на ситуации из жизни.'],
+  r:'Работающие программы и понимание практической ценности ветвления.'},
+ {e:'👥',n:'Групповая работа',s:[0,4],
+  sut:'Класс делится на команды разработчиков по 4–5 человек. У каждого своя роль: кодер, тестировщик, аналитик, спикер.',
+  t:['формирует команды и распределяет роли;','консультирует команды, следит за вкладом каждого;','организует презентацию решений.'],
+  u:['обсуждают решение и распределяют задачи;','помогают друг другу и объясняют код;','спикер защищает решение команды.'],
+  r:'Развитие коммуникации и сотрудничества; решённые миссии.'},
+ {e:'🔬',n:'Исследовательский метод',s:[3,4],
+  sut:'Ученики экспериментально проверяют, как изменение значений переменных и логических операций влияет на результат программы.',
+  t:['ставит исследовательские вопросы: «Что изменится, если age = 14? если заменить and на or?»;','организует эксперимент в лаборатории светофора и песочнице безопасности.'],
+  u:['выдвигают прогноз, меняют значения и запускают код;','сравнивают результат с прогнозом;','делают вывод о работе условия.'],
+  r:'Глубокое понимание граничных значений и логических операций.'},
+ {e:'🔄',n:'Взаимооценивание',s:[4,6],
+  sut:'Команды обмениваются решениями и проверяют их по критериям рубрики, давая конструктивную обратную связь.',
+  t:['знакомит с критериями рубрики;','организует обмен решениями по кругу;','модерирует обсуждение и следит за корректностью отзывов.'],
+  u:['запускают чужой код на тестовых данных;','оценивают по критериям;','пишут отзыв «две звезды и пожелание».'],
+  r:'Критическое мышление и умение находить ошибки в чужом и своём коде.'},
+ {e:'🪜',n:'Дифференцированный подход',s:[5,7],
+  sut:'Задания имеют разные уровни сложности: базовый (A), средний (B) и повышенный (C). Каждый ученик продвигается в своём темпе.',
+  t:['предлагает выбор уровня;','помогает тем, кому трудно, подсказками;','даёт усложнённые задачи сильным ученикам.'],
+  u:['выбирают посильный уровень;','при успехе переходят на следующий;','выбирают уровень домашнего задания.'],
+  r:'Каждый ученик достигает цели обучения на доступном ему уровне.'}
+];
+const mt=$('#mtiles'),md=$('#mdetail');
+mt.innerHTML=METHODS.map((m,i)=>'<button class="mtile reveal d'+(i%5+1)+'" data-m="'+i+'"><span class="e">'+m.e+'</span>'+m.n+'<span class="n">метод '+(i+1)+'</span></button>').join('');
+$$('.reveal',mt).forEach(el=>ro.observe(el));
+function showMethod(i){
+  const m=METHODS[i];$$('.mtile').forEach(t=>t.classList.toggle('on',+t.dataset.m===i));
+  md.innerHTML='<div class="mdetail"><div class="box big"><h4>Метод '+(i+1)+' из 7</h4><h3>'+m.e+' '+m.n+'</h3><h4>Суть метода</h4><p>'+m.sut+'</p></div>'+
+   '<div class="box"><h4>👩‍🏫 Действия учителя</h4><ul style="padding-left:18px">'+m.t.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+   '<div class="box"><h4>🧑‍🎓 Действия учащихся</h4><ul style="padding-left:18px">'+m.u.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+   '<div class="box"><h4>🕐 Этапы урока</h4><div class="stages">'+m.s.map(s=>'<span>'+(s+1)+'. '+STAGES[s].n+'</span>').join('')+'</div></div>'+
+   '<div class="box" style="background:#e3fbee;border-color:#9be6bf"><h4>✅ Результат</h4><p style="font-weight:700">'+m.r+'</p></div></div>';
+}
+mt.addEventListener('click',e=>{const b=e.target.closest('.mtile');if(b)showMethod(+b.dataset.m);});
+showMethod(0);
+$('#matrix').innerHTML='<thead><tr><th>Метод \\ Этап</th>'+STAGES.map((s,i)=>'<th title="'+s.n+'">'+(i+1)+'. '+s.n.split(' ')[0]+'</th>').join('')+'</tr></thead><tbody>'+
+  METHODS.map(m=>'<tr><td>'+m.e+' '+m.n+'</td>'+STAGES.map((s,i)=>'<td>'+(m.s.includes(i)?'<span class="dot"></span>':'')+'</td>').join('')+'</tr>').join('')+'</tbody>';
+
+/* ---------- LESSON ---------- */
+const LESSON=[
+ {goal:'Настроить класс на работу, сформировать команды и ввести в игровой сюжет.',
+  t:['приветствует учащихся, проверяет готовность к уроку;','делит класс на 4 команды «разработчиков» (по цвету карточек);','объявляет правила игры и систему баллов.'],
+  u:['приветствуют учителя, занимают места в командах;','выбирают капитана и название команды;','распределяют роли: кодер, тестировщик, аналитик, спикер.'],
+  meth:['Игровое обучение','Групповая работа'],res:['Интерактивная доска','Сайт урока: главный экран'],out:'Класс готов к работе, команды сформированы, правила понятны.'},
+ {goal:'Создать проблемную ситуацию, вызвать познавательный интерес и вывести учащихся на тему урока.',
+  t:['показывает «сбой» умного города: светофоры, двери и охрана работают неправильно;','задаёт вопрос: «Как можно научить компьютер самостоятельно принимать решения в зависимости от ситуации?»;','фиксирует гипотезы и подводит к понятиям «условие», «ветвление»;','вместе с учащимися формулирует тему и цель урока.'],
+  u:['анализируют ситуацию и выдвигают предположения;','формулируют правила вида «если…, то…, иначе…»;','называют тему урока.'],
+  meth:['Проблемное обучение','Игровое обучение'],res:['Проектор','Сайт урока: сценарий мотивации'],out:'Учащиеся осознают проблему и принимают цель урока.',extra:'Полный диалог учителя и учащихся — в блоке «Сценарий мотивации» ниже.'},
+ {goal:'Повторить понятия, необходимые для записи условий: алгоритм, разветвляющийся алгоритм, переменная, операторы сравнения.',
+  t:['проводит блиц «Сравни и реши» в Wordwall: что получится — 5 > 3, 7 == 7, "a" != "b"?;','повторяет операторы ==, !=, >, <, >=, <=;','акцентирует внимание на разнице между = и ==.'],
+  u:['отвечают в командах на вопросы блица;','объясняют, чем присваивание отличается от сравнения;','получают первые баллы команды.'],
+  meth:['Игровое обучение','Фронтальный опрос'],res:['Wordwall','Интерактивная доска'],out:'Восстановлены опорные знания, необходимые для записи условий.'},
+ {goal:'Сформировать представление о синтаксисе и работе if, if-else, if-elif-else и логических операций and, or, not.',
+  t:['объясняет конструкции на примерах «умного города»;','демонстрирует код в Python IDLE и блок-схемы;','обращает внимание на двоеточие и отступы;','разбирает and/or/not с помощью таблицы истинности;','задаёт вопрос: «Что будет, если изменить значение?»'],
+  u:['следят за объяснением, записывают опорный конспект;','предсказывают результат до запуска программы;','меняют значения переменных и проверяют свои гипотезы.'],
+  meth:['Объяснительно-иллюстративный','Исследовательский метод','Проблемное обучение'],res:['Python / IDLE','Проектор','Сайт урока: «Объяснение нового материала»'],out:'Учащиеся понимают синтаксис и логику условных конструкций (7.3.1.1, 7.3.1.2: знание и понимание).'},
+ {goal:'Применить условные конструкции и составные условия при решении практических задач в команде.',
+  t:['выдаёт командам Миссии 1–3;','консультирует и фиксирует наблюдения в листе наблюдения;','организует взаимопроверку: команды обмениваются решениями по кругу.'],
+  u:['распределяют работу по ролям;','выполняют миссии на сайте и в Replit, тестируют программы;','проверяют решение другой команды по рубрике и пишут «две звезды и пожелание».'],
+  meth:['Практико-ориентированное','Групповая работа','Игровое обучение','Исследовательский метод','Взаимооценивание'],res:['Replit / Python IDLE','Сайт урока: миссии'],out:'Работающие программы, баллы за миссии, взаимная обратная связь.'},
+ {goal:'Проверить, как каждый ученик достиг целей обучения.',
+  t:['предлагает разноуровневые задания:<br>A — определить результат: <code>x = 7</code>; <code>if x % 2 == 0</code> → «чётное», иначе «нечётное»;<br>B — найти ошибку: <code>if score = 10 print("Отлично")</code>;<br>C — записать условие «свет включается, если темно или есть движение»;','запускает викторину Kahoot.'],
+  u:['выбирают уровень и выполняют задание самостоятельно;','участвуют в викторине Kahoot;','сверяют решения с эталоном.'],
+  meth:['Дифференцированный подход','Игровое обучение'],res:['LearningApps','Kahoot'],out:'Каждый ученик показывает индивидуальный уровень освоения темы.'},
+ {goal:'Осмыслить результаты урока и оценить собственное понимание.',
+  t:['проводит рефлексию «Светофор знаний»;','подводит итоги игры, объявляет результаты команд;','комментирует достижения и типичные ошибки.'],
+  u:['выбирают цвет светофора;','отвечают на вопросы рефлексии;','проводят самооценивание по чек-листу.'],
+  meth:['Самооценивание','Взаимооценивание'],res:['Сайт урока: «Светофор знаний»','Интерактивная доска'],out:'Учащиеся осознают свой уровень понимания и знают, что повторить.'},
+ {goal:'Закрепить материал дома с учётом индивидуальных возможностей.',
+  t:['объясняет три уровня домашнего задания;','озвучивает критерии и способ сдачи (ссылка Replit или файл .py).'],
+  u:['выбирают уровень сложности;','записывают задание и задают уточняющие вопросы.'],
+  meth:['Дифференцированный подход','Практико-ориентированное'],res:['Replit','Python / IDLE'],out:'Учащиеся понимают задание и критерии его выполнения.'}
+];
+const tlBar=$('#tlBar'),stageBox=$('#stageBox');let curStage=0;
+tlBar.innerHTML=STAGES.map((s,i)=>'<button class="tl-seg" data-s="'+i+'" style="flex:'+s.m+' 1 0;background:'+s.c+'" data-tip="'+s.n+' · '+s.m+' мин"><span class="m">'+s.m+'′</span><span class="t">'+(i+1)+'. '+s.n+'</span></button>').join('');
+function startMin(i){let t=0;for(let k=0;k<i;k++)t+=STAGES[k].m;return t;}
+function showStage(i){
+  curStage=i;const s=STAGES[i],L=LESSON[i];$$('.tl-seg').forEach(b=>b.classList.toggle('on',+b.dataset.s===i));
+  const a=startMin(i);
+  stageBox.innerHTML='<div class="stage"><div class="side" style="background:linear-gradient(160deg,'+s.c+',#121838)"><div class="no">Этап '+(i+1)+' из 8 · '+a+'–'+(a+s.m)+' мин</div><h3>'+s.n+'</h3><div class="time">'+s.m+'<small> мин</small></div><div class="goalbox"><b>🎯 Цель этапа</b><br>'+L.goal+'</div></div>'+
+  '<div class="main"><div class="cell"><h4>👩‍🏫 Деятельность учителя</h4><ul>'+L.t.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+  '<div class="cell"><h4>🧑‍🎓 Деятельность учащихся</h4><ul>'+L.u.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+  '<div class="cell"><h4>🧭 Методы</h4><div class="tags">'+L.meth.map(x=>'<span>'+x+'</span>').join('')+'</div></div>'+
+  '<div class="cell"><h4>💻 Цифровые ресурсы</h4><div class="tags r">'+L.res.map(x=>'<span>'+x+'</span>').join('')+'</div></div>'+
+  '<div class="cell wide" style="background:#e3fbee"><h4>✅ Ожидаемый результат</h4><b>'+L.out+'</b>'+(L.extra?'<div style="margin-top:6px;color:var(--muted);font-size:14.5px">'+L.extra+'</div>':'')+'</div></div></div>';
+  $('#stPrev').disabled=i===0;$('#stNext').disabled=i===STAGES.length-1;
+}
+tlBar.addEventListener('click',e=>{const b=e.target.closest('.tl-seg');if(b)showStage(+b.dataset.s);});
+$('#stPrev').addEventListener('click',()=>curStage>0&&showStage(curStage-1));
+$('#stNext').addEventListener('click',()=>curStage<7&&showStage(curStage+1));
+showStage(0);
+// timer
+let tSec=0,tInt=null;const TOTAL=45*60;
+function tRender(){
+  const mm=String(Math.floor(tSec/60)).padStart(2,'0'),ss=String(tSec%60).padStart(2,'0');$('#tClock').textContent=mm+':'+ss;
+  $('#tTrack').style.width=Math.min(100,tSec/TOTAL*100)+'%';
+  let acc=0,idx=7;for(let i=0;i<8;i++){acc+=STAGES[i].m*60;if(tSec<acc){idx=i;break;}}
+  $$('.tl-seg').forEach(b=>b.classList.toggle('now',tInt!==null&&+b.dataset.s===idx));
+  if(tInt!==null){$('#tLbl').textContent='Сейчас: '+STAGES[idx].n+' (этап '+(idx+1)+')';if(idx!==curStage)showStage(idx);}
+}
+function tStop(){clearInterval(tInt);tInt=null;$('#tStart').textContent='▶ Старт';}
+function tGo(){clearInterval(tInt);const fast=$('#tFast').checked;tInt=setInterval(()=>{tSec+=fast?60:1;if(tSec>=TOTAL){tSec=TOTAL;tStop();$('#tLbl').textContent='Урок завершён! 45 минут прошли';tRender();toast('⏰ Урок завершён');return;}tRender();},fast?1000:1000);$('#tStart').textContent='⏸ Пауза';tRender();}
+$('#tStart').addEventListener('click',()=>{if(tInt!==null){tStop();$('#tLbl').textContent='Пауза';tRender();}else{if(tSec>=TOTAL)tSec=0;tGo();}});
+$('#tReset').addEventListener('click',()=>{tStop();tSec=0;$('#tLbl').textContent='Таймер урока остановлен';tRender();});
+$('#tFast').addEventListener('change',()=>{if(tInt!==null)tGo();});
+tRender();
+
+/* ---------- THEORY ---------- */
+const TH=[
+ {code:v=>'temperature = '+v+'\nif temperature > 25:\n    print("Жарко")',run:v=>v>25?'Жарко':null,note:v=>v>25?'':'(условие '+v+' > 25 ложно — команда print пропущена, на экран ничего не выведено)'},
+ {code:v=>'age = '+v+'\nif age >= 18:\n    print("Доступ разрешен")\nelse:\n    print("Доступ запрещен")',run:v=>v>=18?'Доступ разрешен':'Доступ запрещен'},
+ {code:v=>'traffic_light = "'+v+'"\nif traffic_light == "green":\n    print("Можно ехать")\nelif traffic_light == "yellow":\n    print("Приготовьтесь")\nelse:\n    print("Стоп")',run:v=>v==='green'?'Можно ехать':v==='yellow'?'Приготовьтесь':'Стоп'},
+ {code:(v,w)=>'age = '+v+'\nhas_ticket = '+w+'\nif age >= 14 and has_ticket:\n    print("Вход разрешен")\nelse:\n    print("Вход запрещен")',run:(v,w)=>(v>=14&&w==='True')?'Вход разрешен':'Вход запрещен'}
+];
+function thVal(i){const el=$('[data-in="'+i+'"]');let v=el.value;if(el.type==='number'){v=parseInt(v,10);if(isNaN(v))v=0;}const e2=$('[data-in2="'+i+'"]');return [v,e2?e2.value:undefined];}
+function thRender(i){const [v,w]=thVal(i);renderCode($('[data-dyn="'+i+'"]'),TH[i].code(v,w));}
+function thRun(i){
+  const [v,w]=thVal(i);const out=$('[data-out="'+i+'"]');const r=TH[i].run(v,w);
+  out.innerHTML='<span class="p">&gt;&gt;&gt; запуск…</span>';
+  setTimeout(()=>{out.innerHTML=r?esc(r):'<span class="p">'+esc(TH[i].note(v))+'</span>';},350);
+  if(i===3){const c1=v>=14,c2=w==='True';out.title='age >= 14 → '+c1+', has_ticket → '+c2;}
+}
+TH.forEach((_,i)=>{thRender(i);
+  const a=$('[data-in="'+i+'"]');a.addEventListener('input',()=>{thRender(i);$('[data-out="'+i+'"]').innerHTML='<span class="p">&gt;&gt;&gt; значение изменено — нажмите «Запустить»</span>';});
+  const b=$('[data-in2="'+i+'"]');if(b)b.addEventListener('change',()=>{thRender(i);$('[data-out="'+i+'"]').innerHTML='<span class="p">&gt;&gt;&gt; значение изменено — нажмите «Запустить»</span>';});
+  $('[data-run="'+i+'"]').addEventListener('click',()=>thRun(i));
+});
+$$('#tTabs .tab').forEach(t=>t.addEventListener('click',()=>{$$('#tTabs .tab').forEach(x=>x.classList.toggle('on',x===t));$$('.tpanel').forEach(p=>p.classList.toggle('on',p.dataset.p===t.dataset.t));}));
+// truth table
+let A=true,Bv=false;
+function truth(){
+  $('#swA').classList.toggle('on',A);$('#swA').textContent=A?'True':'False';$('#swB').classList.toggle('on',Bv);$('#swB').textContent=Bv?'True':'False';
+  [['#opAnd',A&&Bv],['#opOr',A||Bv],['#opNot',!A]].forEach(([s,v])=>{const el=$(s);el.className='op '+(v?'T':'F');$('.r',el).textContent=v?'True':'False';});
+}
+$('#swA').addEventListener('click',()=>{A=!A;truth();});$('#swB').addEventListener('click',()=>{Bv=!Bv;truth();});truth();
+
+/* ---------- MISSIONS ENGINE ---------- */
+const ITEMS={m1:{m1q:10},m2:{m2a:5,m2b:5},m3:{m3s1:2,m3s2:2,m3q1:2,m3q2:2,m3q3:2}};
+const st={},hint={m1:false,m2:false,m3:false};let shownFinal=false;
+function initState(m){for(const id in ITEMS[m])st[id]={done:false,wrong:0,got:0};hint[m]=false;}
+['m1','m2','m3'].forEach(initState);
+const mOf=id=>id.slice(0,2);
+function mScore(m){let s=0;for(const id in ITEMS[m])s+=st[id].got;return Math.max(0,s-(hint[m]?1:0));}
+function mDone(m){return Object.keys(ITEMS[m]).every(id=>st[id].done);}
+function total(){return mScore('m1')+mScore('m2')+mScore('m3');}
+function levelOf(t){if(t>=27)return['🌟 Отличный результат','Вы — настоящие главные разработчики умного города!'];if(t>=21)return['👍 Хороший результат','Почти идеально: разберите задания, где были ошибки.'];if(t>=15)return['🙂 Базовый уровень','Основы освоены. Повторите конструкции и попробуйте ещё раз.'];return['📚 Требуется дополнительная практика','Вернитесь к разделу «Объяснение нового материала» и пройдите миссии заново.'];}
+let lastTotal=0;
+function updateAll(){
+  const t=total();
+  $('#navScore').textContent=t;$('#hudScore').textContent=t;$('#hudBar').style.width=(t/30*100)+'%';$('#totScore').textContent=t;
+  if(t!==lastTotal){const p=$('#scorePill');p.classList.remove('bump');void p.offsetWidth;p.classList.add('bump');lastTotal=t;}
+  let done=0;
+  ['m1','m2','m3'].forEach(m=>{const s=mScore(m),d=mDone(m);if(d)done++;
+    $('#ms-'+m).textContent=s;$('#rv-'+m).textContent=s+'/10';$('#rb-'+m).style.width=(s*10)+'%';
+    $('#pip-'+m).classList.toggle('done',d);$('#'+m).classList.toggle('complete',d);$('#bd-'+m).classList.toggle('got',d);});
+  const all=done===3;$('#bd-pro').classList.toggle('got',all&&t>=27);
+  if(done===0&&t===0){$('#totLevel').innerHTML='Миссии ещё не пройдены<small>Начните с Миссии 1</small>';}
+  else if(!all){$('#totLevel').innerHTML='В процессе: '+done+' из 3 миссий<small>Продолжайте — город ждёт!</small>';}
+  else{const L=levelOf(t);$('#totLevel').innerHTML=L[0]+'<small>'+L[1]+'</small>';}
+  $('#fsScore').textContent=t+'/30';$('#fsMis').textContent=done+'/3';$('#fsBad').textContent=$$('.badge.got').length+'/4';
+  if(all&&!shownFinal){shownFinal=true;setTimeout(()=>showFinal(t),700);}
+}
+function quizOf(id){return $('.quiz[data-item="'+id+'"]');}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+function solve(id,earned,srcEl){
+  const s=st[id];if(s.done)return;const m=mOf(id),pts=ITEMS[m][id];s.done=true;
+  s.got=earned?(s.wrong===0?pts:Math.max(1,Math.floor(pts/2))):0;
+  const q=quizOf(id);
+  if(q){q.classList.add('solved');$$('.opt',q).forEach(o=>{o.disabled=true;if(o.dataset.v===q.dataset.correct)o.classList.add(earned?'correct':'reveal');});
+    const fb=$('.fb',q);
+    if(earned)setFb(fb,'ok','✅ Верно! +'+s.got+' '+plural(s.got)+(s.wrong?' (ответ со второй попытки — половина баллов)':''));
+    else setFb(fb,'rv','👁 Показан правильный ответ. Баллы за это задание не начисляются.');}
+  if(id==='m1q'){const inp=$('#m1input');inp.value='user_password == password';inp.classList.remove('no');inp.classList.add('ok');inp.disabled=true;$('#m1check').disabled=true;
+    const f=$('#m1ifb');if(earned)setFb(f,'ok','✅ Верно! +'+s.got+' '+plural(s.got)+(s.wrong?' (ответ со второй попытки — половина баллов)':''));else setFb(f,'rv','👁 Показан правильный ответ. Баллы не начисляются.');
+    $('#doorLock').classList.add('hide');}
+  if(id==='m2a')setLight('yellow');
+  const ex=$('#ex-'+id);if(ex)ex.classList.add('show');
+  if(earned&&srcEl)floatPts(srcEl,'+'+s.got);
+  updateAll();
+  if(mDone(m))setTimeout(()=>toast('🏅 Миссия '+m.slice(1)+' выполнена! '+mScore(m)+'/10 баллов'),400);
+}
+function plural(n){return n===1?'балл':(n>=2&&n<=4)?'балла':'баллов';}
+function wrongAns(id,why,fbEl){const s=st[id];s.wrong++;setFb(fbEl,'no','❌ Не совсем. '+(why?esc(why)+' ':'')+'Попробуй ещё раз — за верный ответ со второй попытки начисляется половина баллов.');}
+$$('.quiz').forEach(q=>{
+  $$('.opt',q).forEach(b=>b.addEventListener('click',()=>{
+    const id=q.dataset.item;if(st[id].done)return;
+    if(id==='m2a')setLight({a:'green',b:'yellow',c:'red',d:'none'}[b.dataset.v]);
+    if(b.dataset.v===q.dataset.correct){solve(id,true,b);}
+    else{b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');b.disabled=true;wrongAns(id,b.dataset.why,$('.fb',q));}
+  }));
+});
+// m1 modes
+$$('#m1modes button').forEach(b=>b.addEventListener('click',()=>{$$('#m1modes button').forEach(x=>x.classList.toggle('on',x===b));const inp=b.dataset.mode==='input';$('#m1choice').style.display=inp?'none':'';$('#m1inputWrap').style.display=inp?'':'none';if(inp&&!st.m1q.done)$('#m1input').focus();}));
+function m1Check(){
+  if(st.m1q.done)return;const inp=$('#m1input');const raw=inp.value.trim();
+  const v=raw.replace(/^if\s+/,'').replace(/:\s*$/,'').replace(/\s+/g,'');
+  if(!v){setFb($('#m1ifb'),'no','✏️ Поле пустое — впиши условие.');return;}
+  if(v==='user_password==password'||v==='password==user_password'){solve('m1q',true,inp);return;}
+  let why='';
+  if(v.includes('!='))why='«!=» означает «не равно»: дверь откроется при неверном пароле.';
+  else if(/(^|[^=!<>])=([^=]|$)/.test(v))why='Один знак «=» — это присваивание, а для сравнения нужен «==».';
+  else if(/["']/.test(v))why='Имя переменной в кавычках становится обычным текстом. Сравнивай переменные без кавычек.';
+  else if(!v.includes('user_password')||!v.includes('password'))why='Нужно использовать обе переменные: user_password и password.';
+  else why='Проверь, как записано сравнение двух переменных.';
+  inp.classList.remove('no');void inp.offsetWidth;inp.classList.add('no');
+  wrongAns('m1q',why,$('#m1ifb'));
+}
+$('#m1check').addEventListener('click',m1Check);
+$('#m1input').addEventListener('keydown',e=>{if(e.key==='Enter')m1Check();});
+// door sim
+$('#doorRun').addEventListener('click',()=>{
+  const door=$('#door'),con=$('#doorCon'),p=$('#doorPass').value;
+  door.classList.remove('open','deny');void door.offsetWidth;
+  con.innerHTML='Введите пароль: '+esc(p)+'\n';
+  setTimeout(()=>{if(p==='1234'){con.innerHTML+='Доступ разрешен';door.classList.add('open');}else{con.innerHTML+='<span style="color:#ff8b95">Доступ запрещен</span>';door.classList.add('deny');}},450);
+});
+$('#doorPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('#doorRun').click();});
+// traffic light
+function setLight(c){$$('#tlight .lamp').forEach(l=>l.classList.toggle('on',l.classList.contains(c)));}
+let labColor='yellow',labBusy=false;
+const labText=c=>'color = "'+c+'"\nif color == "green":\n    print("Можно ехать")\nelif color == "yellow":\n    print("Приготовьтесь")\nelse:\n    print("Стоп")';
+function labRender(){renderCode($('#labCode'),labText(labColor));}
+labRender();
+$$('#cbtns .cbtn').forEach(b=>b.addEventListener('click',()=>{if(labBusy)return;labColor=b.dataset.c;$$('#cbtns .cbtn').forEach(x=>x.classList.toggle('on',x===b));labRender();$('#labTrace').innerHTML='<span style="color:#5a6699">Нажмите «Выполнить по шагам»</span>';}));
+$('#labRun').addEventListener('click',()=>{
+  if(labBusy)return;labBusy=true;$('#labRun').disabled=true;const c=labColor;const S=[];
+  S.push({ln:0,msg:'Переменная color получает значение "'+c+'"'});
+  S.push({ln:1,msg:'Проверка: color == "green" → '+(c==='green'?'<b style="color:#7dffb0">True</b>':'<b style="color:#ff8b95">False</b>')});
+  if(c==='green')S.push({ln:2,msg:'Выполняется ветвь if',out:'Можно ехать',l:'green'});
+  else{S.push({ln:3,msg:'Проверка: color == "yellow" → '+(c==='yellow'?'<b style="color:#7dffb0">True</b>':'<b style="color:#ff8b95">False</b>')});
+    if(c==='yellow')S.push({ln:4,msg:'Выполняется ветвь elif, else пропускается',out:'Приготовьтесь',l:'yellow'});
+    else{S.push({ln:5,msg:'Все условия ложны → переходим к else'});S.push({ln:6,msg:'Выполняется ветвь else',out:'Стоп',l:'red'});}}
+  const tr=$('#labTrace');tr.innerHTML='';setLight('none');const lines=$$('#labCode .ln');let k=0;
+  (function step(){
+    if(k>=S.length){labBusy=false;$('#labRun').disabled=false;setTimeout(()=>lines.forEach(l=>l.classList.remove('hl','dim')),1500);return;}
+    const s=S[k++];lines.forEach((l,i)=>{l.classList.toggle('hl',i===s.ln);});
+    tr.innerHTML+='<div>▸ Строка '+(s.ln+1)+': '+s.msg+(s.out?' → вывод: <span class="o">'+s.out+'</span>':'')+'</div>';tr.scrollTop=tr.scrollHeight;
+    if(s.l)setLight(s.l);setTimeout(step,850);
+  })();
+});
+// security sandbox
+const sec={age:15,pass:'True',op:'and',not:'0'};
+function secText(){return 'age = '+sec.age+'\nhas_pass = '+sec.pass+'\nif age >= 14 '+sec.op+' '+(sec.not==='1'?'not ':'')+'has_pass:\n    print("Доступ разрешен")\nelse:\n    print("Доступ запрещен")';}
+function secRender(){renderCode($('#secCode'),secText());$('#sAgeV').textContent=sec.age;}
+function segInit(id,key){$$('#'+id+' button').forEach(b=>b.addEventListener('click',()=>{sec[key]=b.dataset.v;$$('#'+id+' button').forEach(x=>x.classList.toggle('on',x===b));secRender();secIdle();}));}
+function secIdle(){$('#secEv').innerHTML='';const g=$('#gate');g.className='gate closed';$('#gText').textContent='Значения изменены — запустите программу';}
+segInit('sPass','pass');segInit('sOp','op');segInit('sNot','not');
+$('#sAge').addEventListener('input',e=>{sec.age=+e.target.value;secRender();secIdle();});
+secRender();
+$('#secRun').addEventListener('click',()=>{
+  const c1=sec.age>=14,hp=sec.pass==='True',c2=sec.not==='1'?!hp:hp,res=sec.op==='and'?(c1&&c2):(c1||c2);
+  const B=v=>v?'True':'False';const ev=$('#secEv');
+  const parts=[['age >= 14',c1]];if(sec.not==='1'){parts.push(['has_pass',hp]);parts.push(['not has_pass',c2]);}else parts.push(['has_pass',c2]);
+  parts.push([B(c1)+' '+sec.op+' '+B(c2),res]);
+  ev.innerHTML='';parts.forEach((p,i)=>setTimeout(()=>{ev.innerHTML+='<span class="ev '+(p[1]?'T':'F')+'">'+esc(p[0])+' →<b>'+B(p[1])+'</b></span>';},i*300));
+  setTimeout(()=>{const g=$('#gate');g.className='gate '+(res?'open':'closed');$('#gText').textContent=res?'Доступ разрешен':'Доступ запрещен';
+    if(sec.op==='or'&&res&&!c1)toast('⚠️ С or система пропускает пользователя младше 14 лет!');},parts.length*300+100);
+});
+// hints, reveal, reset
+$$('[data-hint]').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.hint;const tip=$('#tip-'+m);
+  if(!hint[m]&&!mDone(m)){hint[m]=true;updateAll();toast('💡 Подсказка открыта: −1 балл за миссию');}
+  tip.classList.toggle('show');}));
+$$('[data-reveal]').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.reveal;const ids=Object.keys(ITEMS[m]).filter(id=>!st[id].done);
+  if(!ids.length){toast('Все задания этой миссии уже выполнены');return;}ids.forEach(id=>solve(id,false));}));
+function resetMission(m){
+  initState(m);
+  Object.keys(ITEMS[m]).forEach(id=>{const q=quizOf(id);if(q){q.classList.remove('solved');$$('.opt',q).forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong','reveal');});const fb=$('.fb',q);fb.className='fb';fb.innerHTML='';}
+    const ex=$('#ex-'+id);if(ex)ex.classList.remove('show');});
+  $('#tip-'+m).classList.remove('show');
+  if(m==='m1'){const inp=$('#m1input');inp.value='';inp.disabled=false;inp.classList.remove('ok','no');$('#m1check').disabled=false;const f=$('#m1ifb');f.className='fb';f.innerHTML='';
+    $('#doorLock').classList.remove('hide');$('#door').classList.remove('open','deny');$('#doorPass').value='';$('#doorCon').innerHTML='<span style="color:#5a6699">&gt;&gt;&gt; ожидание запуска…</span>';}
+  if(m==='m2'){setLight('none');$('#labTrace').innerHTML='<span style="color:#5a6699">Здесь появится пошаговое выполнение программы…</span>';}
+  if(m==='m3'){secIdle();$('#gText').textContent='Ожидание запуска…';}
+  shownFinal=false;updateAll();
+}
+$$('[data-reset]').forEach(b=>b.addEventListener('click',()=>{resetMission(b.dataset.reset);toast('↺ Миссия '+b.dataset.reset.slice(1)+' перезапущена');}));
+function resetAll(){['m1','m2','m3'].forEach(resetMission);$('#overlay').classList.remove('show');toast('↺ Все миссии перезапущены');}
+$('#resetAll').addEventListener('click',resetAll);
+$('#finRestart').addEventListener('click',()=>{resetAll();document.getElementById('missions').scrollIntoView({behavior:'smooth'});});
+// final overlay
+function showFinal(t){$('#ovScore').textContent=t;$('#ovLevel').textContent=levelOf(t)[0];$('#overlay').classList.add('show');confetti();}
+$('#ovClose').addEventListener('click',()=>{$('#overlay').classList.remove('show');document.getElementById('missionResults').scrollIntoView({behavior:'smooth',block:'center'});});
+$('#ovRestart').addEventListener('click',()=>{resetAll();document.getElementById('m1').scrollIntoView({behavior:'smooth'});});
+$('#overlay').addEventListener('click',e=>{if(e.target.id==='overlay')$('#overlay').classList.remove('show');});
+// confetti
+const cv=$('#confetti'),cx=cv.getContext('2d');let parts=[],raf=null;
+function confetti(){
+  cv.width=innerWidth;cv.height=innerHeight;const C=['#2459ff','#12c6bd','#7a4dff','#ff7a1a','#ffc928','#16b46a'];
+  for(let i=0;i<180;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight/2,vx:(Math.random()-.5)*16,vy:-Math.random()*16-4,s:Math.random()*8+5,c:C[i%6],r:Math.random()*6,vr:(Math.random()-.5)*.3,life:0});
+  if(!raf)tick();
+}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.vx*=.99;p.r+=p.vr;p.life++;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore();});
+  parts=parts.filter(p=>p.y<cv.height+40&&p.life<400);if(parts.length)raf=requestAnimationFrame(tick);else{raf=null;cx.clearRect(0,0,cv.width,cv.height);}}
+
+/* ---------- RUBRIC ---------- */
+const RUB=[['Использование if','Правильно применяет условие if','7.3.1.1',2],['Использование if-else и if-elif-else','Выбирает подходящую конструкцию','7.3.1.1',2],['Использование логических операций','Правильно применяет and, or, not','7.3.1.2',3],['Решение практической задачи','Создаёт работающий алгоритм','7.3.1.1 · 7.3.1.2',2],['Объяснение решения','Объясняет логику программы','7.3.3.1',1]];
+const rub=RUB.map(()=>null);
+$('#rubricBody').innerHTML=RUB.map((r,i)=>'<tr><td class="crit">'+r[0]+'</td><td>'+r[1]+'</td><td><code>'+r[2]+'</code></td><td><div class="pts" data-r="'+i+'">'+Array.from({length:r[3]+1},(_,k)=>'<button data-k="'+k+'" data-tip="'+k+' из '+r[3]+'">'+k+'</button>').join('')+'</div></td></tr>').join('')+
+  '<tr><td colspan="3" style="text-align:right;font-weight:800">Максимум</td><td style="font-family:var(--fh);font-weight:800">10 баллов</td></tr>';
+function rubUpd(){
+  const t=rub.reduce((a,b)=>a+(b||0),0),filled=rub.every(x=>x!==null);$('#rubTotal').textContent=t;
+  let l=t>=9?0:t>=7?1:t>=5?2:3;const names=['Отличный результат','Хороший результат','Базовый уровень','Требуется дополнительная практика'];
+  $('#rubLevel').textContent=rub.some(x=>x!==null)?(names[l]+(filled?'':' (оценены не все критерии)')):'Отметьте баллы по критериям';
+  $$('.levels div').forEach(d=>d.classList.toggle('on',rub.some(x=>x!==null)&&+d.dataset.l===l));
+}
+$$('.pts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const i=+g.dataset.r;rub[i]=+b.dataset.k;$$('button',g).forEach(x=>x.classList.toggle('on',x===b));rubUpd();}));
+$('#rubReset').addEventListener('click',()=>{rub.fill(null);$$('.pts button').forEach(b=>b.classList.remove('on'));rubUpd();});
+$$('#selfcheck input').forEach(c=>c.addEventListener('change',()=>{const n=$$('#selfcheck input:checked').length;$('#selfRes').textContent='Отмечено: '+n+' из 4'+(n===4?' — отлично! 🎉':n>=2?' — хорошее начало':'');$('#selfRes').style.color=n===4?'var(--ok)':'var(--muted)';}));
+
+/* ---------- REFLECTION ---------- */
+const RM={g:['🚀','Отлично, разработчик!','Ты уверенно используешь условные конструкции. Попробуй домашнее задание повышенного уровня «Умный дом» и придумай систему правил со всеми тремя логическими операциями.','#16b46a'],
+ y:['🛠','Хорошая работа — осталось немного!','Ошибки — нормальная часть программирования. Повтори разницу между = и ==, порядок проверки в if-elif-else и работу and/or. Пройди миссии ещё раз и выбери домашнее задание среднего уровня.','#f5a300'],
+ r:['🤝','Спасибо за честность!','Это первый шаг к пониманию. Вернись к разделу «Объяснение нового материала», поработай с интерактивными примерами и таблицей истинности. Начни с домашнего задания базового уровня — учитель обязательно поможет.','#e8283f']};
+$$('.rbtn').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.r;$$('.rbtn').forEach(x=>{x.classList.toggle('on',x===b);x.classList.toggle('dim',x!==b);});
+  const r=RM[k],box=$('#rmsg');$('#rmsgE').textContent=r[0];$('#rmsgT').textContent=r[1];$('#rmsgP').textContent=r[2];box.style.borderColor=r[3];box.classList.remove('show');void box.offsetWidth;box.classList.add('show');if(k==='g')confetti();}));
+$$('.rq .chips button').forEach(c=>c.addEventListener('click',()=>{const ta=$('textarea',c.closest('.card'));const txt=c.dataset.fill||c.textContent;ta.value=ta.value?ta.value.replace(/\s*$/,'')+', '+txt:txt;ta.focus();}));
+$('#rSubmit').addEventListener('click',()=>{const filled=$$('.rq textarea').filter(t=>t.value.trim()).length;const col=$('.rbtn.on');
+  if(!col&&!filled){$('#rSubRes').style.color='var(--bad)';$('#rSubRes').textContent='Выберите цвет светофора или ответьте хотя бы на один вопрос';return;}
+  $('#rSubRes').style.color='var(--ok)';$('#rSubRes').textContent='✅ Спасибо! Рефлексия принята: '+(col?'сигнал выбран, ':'')+'ответов — '+filled+' из 4.';toast('📨 Рефлексия отправлена учителю');});
+
+/* ---------- HOMEWORK ---------- */
+$$('[data-starter]').forEach(b=>b.addEventListener('click',()=>{const el=$('#st'+b.dataset.starter);const on=el.classList.toggle('show');b.textContent=on?'🙈 Скрыть шаблон':'🧩 Показать шаблон';}));
+
+updateAll();
+})();
+</script>
+</body>
+</html>
